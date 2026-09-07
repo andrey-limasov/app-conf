@@ -1,0 +1,20 @@
+# Принудительно используем LF для всех текстовых файлов
+* text=auto eol=lf
+
+# Явно указываем LF для конкретных типов файлов
+*.md text eol=lf
+*.py text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.txt text eol=lf
+*.gitignore text eol=lf
+*.gitattributes text eol=lf
+
+# Бинарные файлы не конвертируем
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.zip binary
