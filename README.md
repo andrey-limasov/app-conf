@@ -25,7 +25,7 @@ tech_stack:
 repository_structure: dual_branch_via_worktree
   branch_main: student_facing_materials, public
   branch_teacher: instructor_materials, private
-version: 1.1
+version: 1.2
 last_updated: 2026-09-20
 author: andrey-limasov
 license: MIT
@@ -118,9 +118,11 @@ git worktree repair ../app-conf-teacher
 
 ```
 practices/
-└── practice1/
-    ├── practice-1-guide.md          # обе ветки: инструкция для студентов
-    └── practice-1-guide-teacher.md  # только teacher: заметки преподавателя
+├── practice1/
+│   ├── practice-1-guide.md          # обе ветки: инструкция для студентов
+│   └── practice-1-guide-teacher.md  # только teacher: заметки преподавателя
+└── practice2/
+    └── practice-2-guide.md          # обе ветки: инструкция для студентов
 ```
 
 **Принцип именования:** `practice{N}/practice-{N}-guide.md`, преподавательская версия — `practice-{N}-guide-teacher.md`
@@ -220,7 +222,8 @@ syllabus.md
 ├── practices/
 │   ├── practice1/ (инфраструктура команды)
 │   │   └── home-work-1.md (подготовка)
-│   ├── practice2/ (branch protection, code review ADR) — TODO
+│   ├── practice2/ (branch protection, PR-процесс, приёмка ADR)
+│   │   └── home-work-2.md (подготовка к модулю 2) — TODO
 │   └── ... (practice3-practice8)
 └── workshops/
     ├── workshop1/ (инициация проекта) — сценарий в workshops-teacher/
@@ -437,6 +440,7 @@ feat: add ADR 001 for branching strategy
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
 | 2025-02-15 | 1.0 | Первоначальная версия | andrey-limasov |
+| 2026-09-20 | 1.2 | Добавлена практика 2 в структуру `practices/` и граф связей | andrey-limasov |
 | 2026-09-20 | 1.1 | README и ROADMAP внесены в репозиторий; описана модель веток, правило синхронизации и восстановление worktree; структура приведена в соответствие с фактическим состоянием; правило именования исправлено на kebab-case | andrey-limasov |
 
 ---
