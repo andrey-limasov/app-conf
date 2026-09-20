@@ -160,7 +160,7 @@ dashboard:                          ●───●       \
 ## Источники
 
 - [Martin Fowler: Branching Patterns](https://martinfowler.com/articles/branching-patterns.html)
-- [Pro Git, глава 3 «Ветвление в Git»](https://git-scm.com/book/ru/v2/Ветвление-в-Git-Обзор-ветвления)
+- [Pro Git, глава 3 «Ветвление в Git»](https://git-scm.com/book/ru/v2/Ветвление-в-Git-О-ветвлении-в-двух-словах)
 - [GitHub Flow — официальная документация](https://docs.github.com/en/get-started/quickstart/github-flow)
 - [Definition of Done курса](https://github.com/andrey-limasov/app-conf/blob/main/definition-of-done.md)
 
