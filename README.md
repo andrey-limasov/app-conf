@@ -25,7 +25,7 @@ tech_stack:
 repository_structure: dual_branch_via_worktree
   branch_main: student_facing_materials, public
   branch_teacher: instructor_materials, private
-version: 1.2
+version: 1.3
 last_updated: 2026-09-20
 author: andrey-limasov
 license: MIT
@@ -142,7 +142,9 @@ practices/
 workshops/
 └── workshop2/
     ├── workshop2-materials.md              # материалы для самостоятельного изучения (перевёрнутый класс)
-    └── workshop2-presentation-templates.md # шаблон презентации для peer teaching
+    ├── workshop2-presentation-templates.md # шаблон презентации для peer teaching
+    ├── adr-template.md                     # шаблон ADR для заполнения командами
+    └── adr-example.md                      # пример заполненного ADR (GitHub Flow)
 ```
 
 Сюда попадает то, что студенты **должны получить до занятия**: списки материалов для самоподготовки, шаблоны их собственных артефактов. Имена файлов в этой папке исторически отличаются от общего правила (`workshop2-*` вместо `workshop-2-*`) — оставлены как есть, чтобы не ломать уже разосланные студентам ссылки.
@@ -156,14 +158,14 @@ workshops-teacher/
 ├── workshop1/
 │   ├── workshop-1-scenario.md      # поминутный сценарий: тайминг, реплики преподавателя, действия студентов
 │   └── workshop-1-role-cards.md    # карточки ролей для ролевой игры
-└── workshop2/
-    ├── workshop-2-scenario.md      # поминутный сценарий воркшопа 2 (peer teaching по стратегиям ветвления)
-    ├── adr-template.md             # шаблон ADR для заполнения командами
-    ├── adr-example.md              # пример заполненного ADR (GitHub Flow)
-    └── evaluation-sheet.md         # лист оценки презентаций (для слушающих команд и преподавателя)
+├── workshop2/
+│   ├── workshop-2-scenario.md      # поминутный сценарий воркшопа 2 (peer teaching по стратегиям ветвления)
+│   └── evaluation-sheet.md         # лист оценки презентаций (для слушающих команд и преподавателя)
+└── practice2/
+    └── practice-2-review-sheet.md  # лист фиксации межкомандного ревью ADR (зачёт/незачёт)
 ```
 
-**Принцип именования:** `workshop{N}/workshop-{N}-scenario.md`
+**Принцип именования:** `workshop{N}/workshop-{N}-scenario.md`, `practice{N}/practice-{N}-*.md`
 
 ### Папка `additional-files-teacher/` — ТОЛЬКО в ветке `teacher`
 
@@ -217,8 +219,8 @@ syllabus.md
 │   │   └── workshops-teacher/workshop2/evaluation-sheet.md
 │   ├── project-requirements.md (ТЗ проекта)
 │   └── ADR (минимум 2)
-│       ├── workshops-teacher/workshop2/adr-template.md
-│       └── workshops-teacher/workshop2/adr-example.md
+│       ├── workshops/workshop2/adr-template.md
+│       └── workshops/workshop2/adr-example.md
 ├── practices/
 │   ├── practice1/ (инфраструктура команды)
 │   │   └── home-work-1.md (подготовка)
@@ -440,6 +442,7 @@ feat: add ADR 001 for branching strategy
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
 | 2025-02-15 | 1.0 | Первоначальная версия | andrey-limasov |
+| 2026-09-20 | 1.3 | Шаблон и пример ADR перенесены из `workshops-teacher/workshop2/` в `workshops/workshop2/` (обе ветки, единственный источник); добавлен лист фиксации межкомандного ревью в `workshops-teacher/practice2/` | andrey-limasov |
 | 2026-09-20 | 1.2 | Добавлена практика 2 в структуру `practices/` и граф связей | andrey-limasov |
 | 2026-09-20 | 1.1 | README и ROADMAP внесены в репозиторий; описана модель веток, правило синхронизации и восстановление worktree; структура приведена в соответствие с фактическим состоянием; правило именования исправлено на kebab-case | andrey-limasov |
 
@@ -471,7 +474,7 @@ feat: add ADR 001 for branching strategy
 4. Вернуть чек-лист с пометками
 
 **...просят сгенерировать ADR:**
-1. Использовать шаблон `workshops-teacher/workshop2/adr-template.md` и пример `adr-example.md`
+1. Использовать шаблон `workshops/workshop2/adr-template.md` и пример `workshops/workshop2/adr-example.md` (обе ветки)
 2. Заполнить все разделы: Контекст → Варианты → Решение → Обоснование → Последствия → Риски
 3. Убедиться, что решение соответствует DoD
 4. Добавить схему ветвлений (если ADR про стратегии)
