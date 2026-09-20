@@ -7,7 +7,7 @@ document_type: roadmap
 purpose: tracking_progress_and_planning
 target_audience: ai_agents, course_author
 last_updated: 2026-09-20
-version: 2.0
+version: 2.1
 author: andrey-limasov
 related_documents:
   - README.md
@@ -156,15 +156,15 @@ git push -u teacher teacher
 
 | № | Задача | Файл | Ветка | Приоритет | Статус |
 |---|---|---|---|---|---|
-| 2.1 | Сценарий воркшопа 3 (12-Factor App) | `workshops-teacher/workshop3/workshop-3-scenario.md` | teacher | P1 | 📋 TODO |
+| 2.1 | Сценарий воркшопа 3 (контейнеризация и оркестрация) | `workshops-teacher/workshop3/workshop-3-scenario.md` | teacher | P1 | 📋 TODO |
 | 2.2 | Материалы для самостоятельного изучения (воркшоп 3) | `workshops/workshop3/study-materials.md` | main | P1 | 📋 TODO |
 | 2.3 | Карточки заданий воркшопа 3 | `workshops-teacher/workshop3/task-cards.md` | teacher | P2 | 📋 TODO |
-| 2.4 | Инструкция для практики 3 (pydantic-settings) | `practices/practice3/practice-3-guide.md` | main | P1 | 📋 TODO |
+| 2.4 | Инструкция для практики 3 (Dockerfile, Poetry/uv, Compose) | `practices/practice3/practice-3-guide.md` | main | P1 | 📋 TODO |
 | 2.5 | Домашнее задание к практике 3 | `home-work-3.md` | main | P2 | 📋 TODO |
-| 2.6 | Сценарий воркшопа 4 (Docker) | `workshops-teacher/workshop4/workshop-4-scenario.md` | teacher | P1 | 📋 TODO |
+| 2.6 | Сценарий воркшопа 4 (12-Factor App и секреты) | `workshops-teacher/workshop4/workshop-4-scenario.md` | teacher | P1 | 📋 TODO |
 | 2.7 | Материалы для самостоятельного изучения (воркшоп 4) | `workshops/workshop4/study-materials.md` | main | P1 | 📋 TODO |
-| 2.8 | Шаблон Dockerfile с комментариями | `workshops/workshop4/dockerfile-template.md` | main | P2 | 📋 TODO |
-| 2.9 | Инструкция для практики 4 (Docker Compose) | `practices/practice4/practice-4-guide.md` | main | P1 | 📋 TODO |
+| 2.8 | Шаблон Dockerfile с комментариями | `workshops/workshop3/dockerfile-template.md` | main | P2 | 📋 TODO |
+| 2.9 | Инструкция для практики 4 (pydantic-settings, оптимизация образа, pre-commit) | `practices/practice4/practice-4-guide.md` | main | P1 | 📋 TODO |
 | 2.10 | Домашнее задание к практике 4 | `home-work-4.md` | main | P2 | 📋 TODO |
 
 ### Критерии завершения этапа
@@ -234,8 +234,8 @@ git push -u teacher teacher
 |---|---|---|---|---|
 | 1 | Инициация проекта и командная работа | 1 | ✅ DONE | `workshops-teacher/workshop1/` |
 | 2 | Стратегии ветвления Git (peer teaching) | 3 | ✅ DONE | `workshops-teacher/workshop2/` + `workshops/workshop2/` |
-| 3 | Управление конфигурацией (12-Factor) | 5 | 📋 TODO | `workshops-teacher/workshop3/` |
-| 4 | Контейнеризация (Docker) | 7 | 📋 TODO | `workshops-teacher/workshop4/` |
+| 3 | Контейнеризация и оркестрация (Docker, Compose) | 5 | 📋 TODO | `workshops-teacher/workshop3/` |
+| 4 | 12-Factor App и безопасность | 7 | 📋 TODO | `workshops-teacher/workshop4/` |
 | 5 | CI/CD концепции и практика | 9 | 📋 TODO | `workshops-teacher/workshop5/` |
 | 6 | Деплой на VPS | 11 | 📋 TODO | `workshops-teacher/workshop6/` |
 | 7 | Наблюдаемость (логи, health-check) | 13 | 📋 TODO | `workshops-teacher/workshop7/` |
@@ -247,8 +247,8 @@ git push -u teacher teacher
 |---|---|---|---|---|
 | 1 | Инфраструктура команды и первый коммит | 2 | ✅ DONE | `practices/practice1/practice-1-guide.md` |
 | 2 | Branch protection и code review ADR | 4 | 📋 TODO | `practices/practice2/practice-2-guide.md` |
-| 3 | pydantic-settings и .env | 6 | 📋 TODO | `practices/practice3/practice-3-guide.md` |
-| 4 | Docker и Docker Compose | 8 | 📋 TODO | `practices/practice4/practice-4-guide.md` |
+| 3 | Dockerfile, менеджер зависимостей, Compose | 6 | 📋 TODO | `practices/practice3/practice-3-guide.md` |
+| 4 | pydantic-settings, оптимизация образа, pre-commit | 8 | 📋 TODO | `practices/practice4/practice-4-guide.md` |
 | 5 | Настройка CI/CD | 10 | 📋 TODO | `practices/practice5/practice-5-guide.md` |
 | 6 | Деплой на VPS | 12 | 📋 TODO | `practices/practice6/practice-6-guide.md` |
 | 7 | Логирование и health-check | 14 | 📋 TODO | `practices/practice7/practice-7-guide.md` |
@@ -392,6 +392,7 @@ git push -u teacher teacher
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
 | 2025-02-15 | 1.0 | Первоначальная версия | andrey-limasov |
+| 2026-09-20 | 2.1 | Тематический план согласован с syllabus: модуль 1 закрывается ветвлением и branch protection, Docker перенесён в модуль 2 (воркшоп 3 — контейнеризация и оркестрация, воркшоп 4 — 12-Factor) | andrey-limasov |
 | 2026-09-20 | 2.0 | Сверка с фактическим состоянием репозитория: статусы приведены к реальности (закоммичено 17 документов вместо заявленных 12), устаревший календарь 2025 заменён относительным планированием, выделены ветки для каждой задачи, remote `teacher` поднят до P0, задача 1.9 (сравнительная таблица) поднята до P1 | andrey-limasov |
 
 ---
