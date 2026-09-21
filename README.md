@@ -225,7 +225,7 @@ syllabus.md
 │   ├── practice1/ (инфраструктура команды)
 │   │   └── home-work-1.md (подготовка)
 │   ├── practice2/ (branch protection, PR-процесс, приёмка ADR)
-│   │   └── home-work-2.md (подготовка к модулю 2) — TODO
+│   │   └── домашнее задание — раздел внутри practice-2-guide.md (отдельного файла нет)
 │   └── ... (practice3-practice8)
 └── workshops/
     ├── workshop1/ (инициация проекта) — сценарий в workshops-teacher/
