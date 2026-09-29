@@ -1,7 +1,7 @@
 # Материалы для самостоятельного изучения (Воркшоп №3)
 
 **Тема воркшопа:** Контейнеризация и оркестрация: Docker, Docker Compose, менеджер зависимостей
-**Время на подготовку:** около 1 часа 20 минут — 70 минут чтения и 10 минут практической проверки
+**Время на подготовку:** около 1 часа 25 минут — 75 минут чтения и 10 минут практической проверки
 
 На воркшопе вы будете проектировать схему окружения своего проекта (FastAPI + PostgreSQL в Docker Compose) и выбирать менеджер зависимостей. Лекции не будет: всё, что нужно для работы на занятии, — в списке ниже. Список сокращён до обязательного минимума, дополнительных материалов нет.
 
@@ -17,7 +17,7 @@ docker compose version
 docker run --rm hello-world
 ```
 
-Последняя команда выводит `Hello from Docker!`. Если Docker не работает, в первую очередь решайте установку, а читайте потом: без Docker на занятии вы сможете работать только за ноутбуком сокомандника.
+Последняя команда выводит `Hello from Docker!`. На самом воркшопе Docker вам не понадобится — там работа идёт в редакторе и git. Но практическая проверка ниже и вся практика №3 без Docker невозможны, поэтому если он не работает — решайте установку до практики №3.
 
 ---
 
@@ -27,11 +27,12 @@ docker run --rm hello-world
 
 | № | Материал | Время | На какие вопросы найти ответ |
 |---|---|---|---|
-| 1 | [What is Docker?](https://docs.docker.com/get-started/docker-overview/) — Docker Docs | 15 мин | Чем образ (image) отличается от контейнера? Что такое реестр (registry)? Что происходит при `docker run`? |
-| 2 | [How Compose works](https://docs.docker.com/compose/intro/compose-application-model/) — Docker Docs | 15 мин | Что такое сервис, сеть и том в Compose? Как контейнеры одного `compose.yaml` находят друг друга? |
+| 1 | [What is Docker?](https://docs.docker.com/get-started/docker-overview/) — Docker Docs, разделы **Docker registries** и **Docker objects** (вместе с примером `docker run`) | 10 мин | Чем образ (image) отличается от контейнера? Что такое реестр (registry)? Что происходит при `docker run`? |
+| 2 | [How Compose works](https://docs.docker.com/compose/intro/compose-application-model/) — Docker Docs | 15 мин | Что такое сервис, сеть и том в Compose? |
+| 2а | [Networking in Compose](https://docs.docker.com/compose/how-tos/networking/) — Docker Docs | 10 мин | Как контейнеры одного `compose.yaml` находят друг друга? Чем порт хоста отличается от порта контейнера? |
 | 3 | [Control startup order](https://docs.docker.com/compose/how-tos/startup-order/) — Docker Docs | 10 мин | Почему `depends_on` без условия не гарантирует, что база готова принимать подключения? Что делает `healthcheck` с `pg_isready`? |
-| 4 | [postgres — Docker Official Image](https://hub.docker.com/_/postgres), разделы **Environment Variables** и **Where to Store Data** | 10 мин | Какие переменные окружения обязательны? Куда монтировать том с данными и почему путь зависит от версии PostgreSQL? |
-| 5 | [uv: Working on projects](https://docs.astral.sh/uv/guides/projects/) и [Poetry: Basic usage](https://python-poetry.org/docs/basic-usage/) | 20 мин (по 10) | Что хранится в `pyproject.toml`, а что в lock-файле? Как каждый инструмент фиксирует версию Python? Какие команды устанавливают зависимости строго по lock-файлу? |
+| 4 | [Описание образа postgres](https://github.com/docker-library/docs/blob/master/postgres/README.md) (полная версия страницы Docker Hub), разделы **Environment Variables**, **PGDATA** и **Where to Store Data** | 10 мин | Какие переменные окружения обязательны? Куда монтировать том с данными и почему путь зависит от версии PostgreSQL? |
+| 5 | [uv: Working on projects](https://docs.astral.sh/uv/guides/projects/) и [Poetry: Basic usage](https://python-poetry.org/docs/basic-usage/) | 20 мин (по 10) | Что хранится в `pyproject.toml`, а что в lock-файле? Как каждый инструмент фиксирует версию Python? Какой командой добавляется зависимость и какой — устанавливается всё окружение проекта? |
 
 **Материал 5 читайте как сравнение**, а не как два независимых руководства: на воркшопе команда будет выбирать между Poetry и uv и фиксировать выбор в ADR 002. Если ваша команда уже использует один из инструментов, всё равно прочитайте про второй — в ADR нужно сравнение, а не описание привычного варианта.
 
@@ -39,7 +40,7 @@ docker run --rm hello-world
 
 ## 2. Практическая проверка (10 мин)
 
-Выполните на своей машине. Команды одинаково работают в PowerShell, macOS и Linux. В Git Bash на Windows ключ `-it` не работает — используйте PowerShell.
+Выполните на своей машине. Команды одинаково работают в PowerShell, Git Bash, macOS и Linux.
 
 **Шаг 1.** Запустить PostgreSQL 16 в контейнере, ничего не устанавливая локально:
 
@@ -49,13 +50,13 @@ docker run -d --name w3-db -e POSTGRES_PASSWORD=w3 postgres:16
 
 Первый запуск скачает образ (около 170 МБ, на медленном канале — несколько минут). Это заодно избавит вас от скачивания на практике №3.
 
-**Шаг 2.** Через 10–15 секунд выполнить запрос внутри контейнера:
+**Шаг 2.** Через несколько секунд выполнить запрос внутри контейнера:
 
 ```bash
-docker exec -it w3-db psql -U postgres -c "select version();"
+docker exec w3-db psql -U postgres -c "select version();"
 ```
 
-**Ожидаемый вывод:** строка, начинающаяся с `PostgreSQL 16.`. Если видите `connection to server on socket ... failed: No such file or directory` или `the database system is starting up` — база ещё инициализируется, повторите через 10 секунд. Этот эффект — ровно тот случай, ради которого читается материал 3.
+**Ожидаемый вывод:** таблица из одной строки, содержащей `PostgreSQL 16.`. Если видите `connection to server on socket ... failed: No such file or directory` или `the database system is starting up` — база ещё инициализируется, повторите через несколько секунд. Этот эффект — ровно тот случай, ради которого читается материал 3.
 
 **Шаг 3.** Удалить контейнер вместе с его безымянным томом:
 
@@ -92,7 +93,7 @@ docker rm -f -v w3-db
 
 ## Что понадобится на занятии
 
-- Ноутбук с работающим Docker минимум у двух участников команды
+- Ноутбук с git и редактором минимум у двух участников команды (Docker на воркшопе не нужен)
 - Локальная копия репозитория команды, `main` в актуальном состоянии (`git pull`)
 - Бланк схемы окружения: [`environment-schema-template.md`](environment-schema-template.md) — открывать заранее не обязательно, работа с ним пройдёт на занятии
 - Шаблон ADR из воркшопа №2: [`../workshop2/adr-template.md`](../workshop2/adr-template.md) — по его структуре пишется ADR 002
