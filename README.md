@@ -25,8 +25,8 @@ tech_stack:
 repository_structure: dual_branch_via_worktree
   branch_main: student_facing_materials, public
   branch_teacher: instructor_materials, private
-version: 1.3
-last_updated: 2026-09-20
+version: 1.4
+last_updated: 2026-09-29
 author: andrey-limasov
 license: MIT
 ```
@@ -144,9 +144,12 @@ workshops/
     ├── workshop2-presentation-templates.md # шаблон презентации для peer teaching
     ├── adr-template.md                     # шаблон ADR для заполнения командами
     └── adr-example.md                      # пример заполненного ADR (GitHub Flow)
+└── workshop3/
+    ├── workshop3-materials.md              # материалы для самостоятельного изучения
+    └── environment-schema-template.md      # бланк схемы окружения (Compose) с чек-листом межкомандной проверки
 ```
 
-Сюда попадает то, что студенты **должны получить до занятия**: списки материалов для самоподготовки, шаблоны их собственных артефактов. Имена файлов в этой папке исторически отличаются от общего правила (`workshop2-*` вместо `workshop-2-*`) — оставлены как есть, чтобы не ломать уже разосланные студентам ссылки.
+Сюда попадает то, что студенты **должны получить до занятия**: списки материалов для самоподготовки, шаблоны их собственных артефактов. Имена файлов в этой папке исторически отличаются от общего правила (`workshop2-*` вместо `workshop-2-*`) — оставлены как есть, чтобы не ломать уже разосланные студентам ссылки. Материалы следующих воркшопов называются так же (`workshop3-materials.md`), чтобы студенты находили их по одному шаблону.
 
 ### Папка `workshops-teacher/` — ТОЛЬКО в ветке `teacher`
 
@@ -160,6 +163,8 @@ workshops-teacher/
 ├── workshop2/
 │   ├── workshop-2-scenario.md      # поминутный сценарий воркшопа 2 (peer teaching по стратегиям ветвления)
 │   └── evaluation-sheet.md         # лист оценки презентаций (для слушающих команд и преподавателя)
+├── workshop3/
+│   └── workshop-3-scenario.md      # поминутный сценарий воркшопа 3 (кейс, демо, схема окружения, ADR 002)
 └── practice2/
     └── practice-2-review-sheet.md  # лист фиксации межкомандного ревью ADR (зачёт/незачёт)
 ```
@@ -231,7 +236,10 @@ syllabus.md
     ├── workshop2/ (стратегии ветвления, peer teaching)
     │   ├── workshops/workshop2/ (для студентов)
     │   └── workshops-teacher/workshop2/ (для преподавателя)
-    └── ... (workshop3-workshop8)
+    ├── workshop3/ (контейнеризация: схема окружения, ADR 002 — менеджер зависимостей)
+    │   ├── workshops/workshop3/ (для студентов)
+    │   └── workshops-teacher/workshop3/ (для преподавателя)
+    └── ... (workshop4-workshop8)
 ```
 
 **Ключевые связи:**
@@ -440,6 +448,7 @@ feat: add ADR 001 for branching strategy
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
+| 2026-09-29 | 1.4 | Добавлены материалы воркшопа 3: `workshops/workshop3/` (обе ветки) и `workshops-teacher/workshop3/` | andrey-limasov |
 | 2025-02-15 | 1.0 | Первоначальная версия | andrey-limasov |
 | 2026-09-20 | 1.3 | Шаблон и пример ADR перенесены из `workshops-teacher/workshop2/` в `workshops/workshop2/` (обе ветки, единственный источник); добавлен лист фиксации межкомандного ревью в `workshops-teacher/practice2/` | andrey-limasov |
 | 2026-09-20 | 1.2 | Добавлена практика 2 в структуру `practices/` и граф связей | andrey-limasov |
