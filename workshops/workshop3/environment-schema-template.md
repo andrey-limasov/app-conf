@@ -9,10 +9,12 @@
 >
 > ```bash
 > # macOS / Linux / Git Bash
-> curl -o docs/environment-schema.md https://raw.githubusercontent.com/andrey-limasov/app-conf/main/workshops/workshop3/environment-schema-template.md
+> curl -fsSL -o docs/environment-schema.md https://raw.githubusercontent.com/andrey-limasov/app-conf/main/workshops/workshop3/environment-schema-template.md
 > # Windows PowerShell
-> curl.exe -o docs/environment-schema.md https://raw.githubusercontent.com/andrey-limasov/app-conf/main/workshops/workshop3/environment-schema-template.md
+> curl.exe -fsSL -o docs/environment-schema.md https://raw.githubusercontent.com/andrey-limasov/app-conf/main/workshops/workshop3/environment-schema-template.md
 > ```
+>
+> Ключ `-f` нужен, чтобы при ошибке скачивания `curl` завершился с ошибкой, а не записал в файл текст `404: Not Found`.
 
 **Команда:** [название]
 **Проект:** [название, 1 предложение о том, что делает приложение]
@@ -100,3 +102,41 @@ flowchart LR
 | 1 | Доработать схему по разделу 4, заполнить раздел 5 | `docs/environment-schema.md` смержен через PR с approval сокомандника в основную ветку разработки (`main` или `develop` по вашей стратегии) | 3 дня после воркшопа |
 | 2 | Дописать ADR 002 | `docs/adr/002-dependency-manager.md`: все разделы шаблона заполнены, статус «Предложено», PR открыт, но **не смержен** — статус «Принято» ADR получит на практике №3 | К практике №3 |
 | 3 | Подготовить инструмент | Каждый участник установил выбранный в ADR инструмент (`uv --version` или `poetry --version` отвечает). В `.gitignore` добавлена строка `.venv/` отдельным PR с сообщением `chore: ignore .venv` — uv по умолчанию создаёт окружение в `.venv`. Выполнен `docker pull` образа `python` с версией вашего проекта, например `python:3.12-slim` | К практике №3 |
+
+### Как писать ADR 002 по шаблону ADR 001
+
+Скопировать шаблон в ветку ADR:
+
+```bash
+# macOS / Linux / Git Bash
+curl -fsSL -o docs/adr/002-dependency-manager.md https://raw.githubusercontent.com/andrey-limasov/app-conf/main/workshops/workshop2/adr-template.md
+# Windows PowerShell
+curl.exe -fsSL -o docs/adr/002-dependency-manager.md https://raw.githubusercontent.com/andrey-limasov/app-conf/main/workshops/workshop2/adr-template.md
+```
+
+Шаблон написан под стратегии ветвления. Что заменить:
+
+| Раздел шаблона | Что писать в ADR 002 |
+|---|---|
+| Заголовок | `# ADR 002: Выбор менеджера зависимостей` |
+| Контекст → «Уровень опыта команды с Git» | Опыт команды с pip, Poetry, uv; чем проект управляет зависимостями сейчас |
+| Контекст → «Проблема» | Ваш список проблем с воркшопа из колонки «Менеджер зависимостей» |
+| Рассмотренные варианты A/B/C | A — pip + `requirements.txt`, B — Poetry, C — uv. В начало раздела — таблица сравнения по критериям ниже |
+| Решение → «Схема ветвления» | «Как ставятся зависимости»: команда для разработчика и команда для Dockerfile (гипотеза до практики №3) |
+| Решение → «Правила работы с ветками» | Какие файлы коммитятся (`pyproject.toml`, lock-файл), как добавляется зависимость, как ставятся dev-зависимости |
+| Обоснование → размер команды, частота релизов | Критерии, по которым выбранный вариант выигрывает |
+| Связь с другими ADR → «Этот ADR является первым» | Ссылка на ADR 001 |
+
+Критерии сравнения (минимум пять) и где искать ответ:
+
+| Критерий | Где искать |
+|---|---|
+| Lock-файл: разделены ли прямые и транзитивные зависимости, есть ли хеши | Откройте lock-файл после пробной установки; для pip — `requirements.txt` после `pip freeze` |
+| Фиксация версии Python | [uv: Working on projects](https://docs.astral.sh/uv/guides/projects/), [Poetry: Basic usage](https://python-poetry.org/docs/basic-usage/) |
+| Разделение основных и dev-зависимостей | [uv: Managing dependencies](https://docs.astral.sh/uv/concepts/projects/dependencies/), [Poetry: Managing dependencies](https://python-poetry.org/docs/managing-dependencies/) |
+| Установка строго по lock-файлу | [uv: Locking and syncing](https://docs.astral.sh/uv/concepts/projects/sync/), [Poetry: CLI](https://python-poetry.org/docs/cli/) — команды `install`, `sync`, `check --lock` |
+| Скорость установки | Документация инструмента, пробная установка |
+| Как инструмент ставится в Docker-образ | Гипотеза, проверяется на практике №3 |
+| Стоимость перехода с текущего состояния проекта | Ваш репозиторий |
+| Зрелость, документация, распространённость | Документация инструмента |
+| Опыт команды | Команда |

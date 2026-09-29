@@ -178,10 +178,8 @@
 
 ---
 
----
-
 ## История изменений
 
 | Дата | Изменение |
 |---|---|
-| 2026-09-29 | Раздел 3 и чек-лист перед защитой: допускаются оба имени compose-файла (`compose.yaml` и `docker-compose.yml`), команда запуска — `docker compose up --build`. Docker Compose v2 ищет файл `compose.yaml`, а также поддерживает прежнее имя `docker-compose.yml` — годится любое. Команда — `docker compose` (через пробел): отдельная утилита `docker-compose` (v1) в актуальных версиях Docker не поставляется. Суть требования не изменилась |
+| 2026-09-29 | Раздел 3 и чек-лист перед защитой: допускаются оба имени compose-файла (`compose.yaml` и `docker-compose.yml`), команда запуска — `docker compose up --build`. Docker Compose v2 и новее ищет файл `compose.yaml` и поддерживает прежнее имя `docker-compose.yml` — годится любое. Команда — `docker compose` (через пробел): устаревшая утилита `docker-compose` v1 не поставляется; в Docker Desktop команда `docker-compose` осталась как псевдоним той же современной утилиты, на Linux её может не быть. Суть требования не изменилась |
