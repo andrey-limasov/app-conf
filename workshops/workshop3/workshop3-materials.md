@@ -85,7 +85,7 @@ docker rm -f -v w3-db
 
 Чтобы уложиться в отведённое время, отложите:
 
-- написание `Dockerfile`, multi-stage build, non-root пользователь — это практика №3 и №4;
+- написание `Dockerfile` — это практика №3; multi-stage build и non-root пользователь — практика №4;
 - переменные окружения, `.env`, `pydantic-settings`, секреты — это воркшоп №4;
 - Kubernetes, Docker Swarm и прочие оркестраторы кластерного уровня — в курсе не используются.
 

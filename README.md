@@ -120,8 +120,11 @@ practices/
 ├── practice1/
 │   ├── practice-1-guide.md          # обе ветки: инструкция для студентов
 │   └── practice-1-guide-teacher.md  # только teacher: заметки преподавателя
-└── practice2/
-    └── practice-2-guide.md          # обе ветки: инструкция для студентов
+├── practice2/
+│   └── practice-2-guide.md          # обе ветки: инструкция для студентов
+└── practice3/
+    ├── practice-3-guide.md          # обе ветки: инструкция для студентов
+    └── practice-3-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
 ```
 
 **Принцип именования:** `practice{N}/practice-{N}-guide.md`, преподавательская версия — `practice-{N}-guide-teacher.md`
@@ -230,7 +233,9 @@ syllabus.md
 │   │   └── home-work-1.md (подготовка)
 │   ├── practice2/ (branch protection, PR-процесс, приёмка ADR)
 │   │   └── домашнее задание — раздел внутри practice-2-guide.md (отдельного файла нет)
-│   └── ... (practice3-practice8)
+│   ├── practice3/ (Dockerfile, менеджер зависимостей, стек в Compose)
+│   │   └── домашнее задание — раздел внутри practice-3-guide.md (отдельного файла нет)
+│   └── ... (practice4-practice8)
 └── workshops/
     ├── workshop1/ (инициация проекта) — сценарий в workshops-teacher/
     ├── workshop2/ (стратегии ветвления, peer teaching)
@@ -448,6 +453,7 @@ feat: add ADR 001 for branching strategy
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
+| 2026-10-05 | 1.5 | Добавлена практика 3 в структуру `practices/` и граф связей | andrey-limasov |
 | 2026-09-29 | 1.4 | Добавлены материалы воркшопа 3: `workshops/workshop3/` (обе ветки) и `workshops-teacher/workshop3/` | andrey-limasov |
 | 2025-02-15 | 1.0 | Первоначальная версия | andrey-limasov |
 | 2026-09-20 | 1.3 | Шаблон и пример ADR перенесены из `workshops-teacher/workshop2/` в `workshops/workshop2/` (обе ветки, единственный источник); добавлен лист фиксации межкомандного ревью в `workshops-teacher/practice2/` | andrey-limasov |
