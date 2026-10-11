@@ -11,7 +11,7 @@ target_audience:
 format: project_based_learning, flipped_classroom
 duration: 16_weeks, 1_semester
 team_size: 3_4_students
-credits: 4_ZET, 144_hours
+credits: 3_ZET, 108_hours
 tech_stack:
   language: Python 3.11+
   framework: FastAPI
@@ -453,6 +453,7 @@ feat: add ADR 001 for branching strategy
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
+| 2026-10-11 | 1.6 | Метаданные: трудоёмкость `3_ZET, 108_hours` вместо `4_ZET, 144_hours` — по `syllabus.md` (16 + 32 + 60 ч) | andrey-limasov |
 | 2026-10-05 | 1.5 | Добавлена практика 3 в структуру `practices/` и граф связей | andrey-limasov |
 | 2026-09-29 | 1.4 | Добавлены материалы воркшопа 3: `workshops/workshop3/` (обе ветки) и `workshops-teacher/workshop3/` | andrey-limasov |
 | 2025-02-15 | 1.0 | Первоначальная версия | andrey-limasov |

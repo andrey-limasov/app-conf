@@ -293,10 +293,22 @@ git ls-files docs
 - **Проект на Poetry с практики №1.** Выпишите из `pyproject.toml` прямые зависимости (раздел `dependencies` или `[tool.poetry.dependencies]`) и уберите файлы Poetry — дальше выполните команды основного пути как написано; если среди выписанных есть пакеты сверх `fastapi` и `uvicorn[standard]`, добавьте их в `uv add`:
 
   ```bash
-  git rm pyproject.toml poetry.lock
+  git rm -f --ignore-unmatch pyproject.toml poetry.lock
   ```
 
-- **Проект уже на uv** (`pyproject.toml` и `uv.lock` есть): `uv init` пропустите, выполните `uv python pin 3.12` и `uv add "psycopg[binary]"`.
+  `--ignore-unmatch` нужен, если файлы Poetry с практики №1 не были закоммичены: `git rm` уберёт закоммиченные, а незакоммиченные останутся на диске. Удалите их:
+
+  ```bash
+  # macOS / Linux / Git Bash
+  rm -f pyproject.toml poetry.lock
+
+  # Windows PowerShell
+  Remove-Item pyproject.toml, poetry.lock -ErrorAction SilentlyContinue
+  ```
+
+  **Ожидаемый вывод:** `git status --short` показывает `D  pyproject.toml` и `D  poetry.lock` для закоммиченных файлов и ничего — для незакоммиченных; файлов `pyproject.toml` и `poetry.lock` в папке нет.
+
+- **Проект уже на uv** (`pyproject.toml` и `uv.lock` есть): `uv init` пропустите, выполните `uv python pin 3.12` и `uv add "psycopg[binary]"`. Если `uv python pin 3.12` отвечает ``error: The requested Python version `3.12` is incompatible with the project `requires-python` value of `>=3.13` `` (или другой версии выше 3.12), — в `pyproject.toml` замените строку `requires-python` на `requires-python = ">=3.11"` и повторите обе команды: образ собирается на Python 3.12, и проект должен его допускать.
 
 *Основной путь* — проект на `requirements.txt` (или после `git rm` выше):
 
@@ -334,8 +346,20 @@ dependencies = [
 Старый `requirements.txt`, если он есть, удалите: источником правды о зависимостях теперь будет `pyproject.toml` и `uv.lock`, а второй список неизбежно разойдётся с ними.
 
 ```bash
-git rm requirements.txt
+git rm -f --ignore-unmatch requirements.txt
 ```
+
+Если `requirements.txt` не был закоммичен, `git rm` его не тронет — удалите файл с диска:
+
+```bash
+# macOS / Linux / Git Bash
+rm -f requirements.txt
+
+# Windows PowerShell
+Remove-Item requirements.txt -ErrorAction SilentlyContinue
+```
+
+**Ожидаемый вывод:** в `git status --short` строка `D  requirements.txt`, если файл был закоммичен; если не был — строки с `requirements.txt` нет (строки `?? pyproject.toml`, `?? uv.lock` и другие новые файлы остаются). Файла `requirements.txt` в папке нет.
 
 **Если ваш ADR выбрал Poetry:**
 
@@ -1224,7 +1248,7 @@ curl -i http://localhost:8000/health      # PowerShell: curl.exe -i ...
 
 **Точка синхронизации 170.**
 
-**GitHub Flow и Trunk-Based:** проверить правило `Restrict deletions` экспериментом, как обещала практика №2, у вас не получится — защищённая ветка по-прежнему одна, и она же default. Отметка в чек-листе практики №2 «включено, проверке на default-ветке не поддаётся» остаётся окончательной.
+**GitHub Flow и Trunk-Based:** `Restrict deletions` экспериментом не проверяется — защищённая ветка одна, и она же default. Запись в разделе «Защита ветки» `CONTRIBUTING.md` с практики №2 («включено; на default-ветке экспериментом не проверяется») остаётся окончательной.
 
 #### Шаг 8.2: GitFlow — релиз `develop` → `main` и проверка `Restrict deletions` (5 мин)
 
@@ -1252,7 +1276,7 @@ curl -i http://localhost:8000/health      # PowerShell: curl.exe -i ...
    ```
 
    **Ожидаемый вывод** последней команды заканчивается строкой `branch 'release/0.3.0' set up to track 'origin/release/0.3.0'.`
-2. На GitHub: **New pull request**, base — `main`, compare — `release/0.3.0` (или `develop`). Заголовок — по Conventional Commits: `chore: release 0.3.0 with containerized stack` (из `develop` — `chore: release containerized stack`). В шаблоне PR в разделе «В какую ветку» отметьте `main`
+2. На GitHub: **New pull request**, base — `main`, compare — `release/0.3.0` (или `develop`). Заголовок — по Conventional Commits: `chore: release 0.3.0 with containerized stack` (из `develop` — `chore: release containerized stack`). Базовая ветка PR — `main`; если в вашем шаблоне PR есть раздел «В какую ветку» (практика №2 добавляет его командам GitFlow), отметьте в нём `main`
 3. Если GitHub пишет `Can't automatically merge` — в `main` есть коммиты, которых нет в `develop`: синхронизация из шага 1.1 не была сделана. На занятии на неё времени нет — шаг 8.2 целиком переходит в домашнее задание 1: сначала синхронизация по шагу 1.1, затем этот шаг
 4. Approval сокомандника, **Create a merge commit** (не squash: иначе `main` и `develop` снова разойдутся по истории)
 5. Проверьте, что `develop` пережила merge: включённое у вас `Automatically delete head branches` удаляет ветку-источник после merge (`release/0.3.0` исчезнет — так и должно быть), но защищённую ветку удалить не может, даже если PR шёл прямо из `develop`:
@@ -1269,9 +1293,9 @@ curl -i http://localhost:8000/health      # PowerShell: curl.exe -i ...
    git push origin --delete develop
    ```
 
-   **Ожидаемый вывод:** отказ сервера — `GH013: Repository rule violations found ... Cannot delete this branch` (rulesets) либо `GH006: Protected branch update failed ... Cannot delete this protected branch` (классическая защита). Ещё раз выполните `git ls-remote --heads origin develop` — ветка на месте. Если текст отказа отличается от записанного на практике №2 в разделе «Защита ветки» `CONTRIBUTING.md` — обновите его в домашнем задании
+   **Ожидаемый вывод:** отказ сервера — `GH013: Repository rule violations found ... Cannot delete this branch` (rulesets) либо `GH006: Protected branch update failed ... Cannot delete this protected branch` (классическая защита). Ещё раз выполните `git ls-remote --heads origin develop` — ветка на месте. Сверьте текст с разделом «Защита ветки» `CONTRIBUTING.md`: если отказа на удаление `develop` там нет (практика №2 до исправления 2026-10-10 его не требовала) — запишите, если текст отличается — обновите. Запишите сразу, в PR обратного вливания или отдельным PR; не успеваете — в домашнем задании 1
 
-7. **Только для `release/*`: обратное вливание в `develop`.** В `main` теперь есть коммит подъёма версии, которого нет в `develop`; без обратного вливания следующая ветка от `develop` снова получит `0.2.0`. Ветка `release/0.3.0` уже удалена после merge, а всё её содержимое — в `main`, поэтому PR открывается прямо из `main`: **New pull request**, base — `develop`, compare — `main`. Заголовок — `chore: merge release 0.3.0 back into develop`, в разделе «В какую ветку» — `develop`. Approval сокомандника, **Create a merge commit**. `main` после merge не удалится — это защищённая ветка. Проверка:
+7. **Только для `release/*`: обратное вливание в `develop`.** В `main` теперь есть коммит подъёма версии, которого нет в `develop`; без обратного вливания следующая ветка от `develop` снова получит `0.2.0`. Ветка `release/0.3.0` уже удалена после merge, а всё её содержимое — в `main`, поэтому PR открывается прямо из `main`: **New pull request**, base — `develop`, compare — `main`. Заголовок — `chore: merge release 0.3.0 back into develop`; если в шаблоне PR есть раздел «В какую ветку» — отметьте `develop`. Approval сокомандника, **Create a merge commit**. `main` после merge не удалится — это защищённая ветка. Проверка:
 
    ```bash
    git fetch --prune origin
@@ -1473,7 +1497,7 @@ curl -i http://localhost:8000/health      # PowerShell: curl.exe -i ...
 - [ ] До PR (шаг 6.3) рабочая ветка содержит `develop` с шаблоном PR и ADR 001: синхронизация с `main` сделана до занятия или на шаге 1.1 и влита в рабочую ветку в начале этапа 5
 - [ ] Стек и ADR 002 смержены в `main` через PR релиза; для `release/*` — версия в `main.py` поднята, релиз влит обратно в `develop` (`git log --oneline --no-merges origin/develop..origin/main` пуст)
 - [ ] `develop` существует после релиза (`git ls-remote --heads origin develop`)
-- [ ] Повторная попытка `git push origin --delete develop` отклонена сервером; текст отказа в `CONTRIBUTING.md` актуален
+- [ ] Повторная попытка `git push origin --delete develop` отклонена сервером; текст отказа записан в разделе «Защита ветки» `CONTRIBUTING.md` и актуален
 
 ---
 
@@ -1495,7 +1519,7 @@ curl -i http://localhost:8000/health      # PowerShell: curl.exe -i ...
 | Ревью воспроизводимости содержательное | PR проверяемой команды | Ревью по шаблону: команды, результат `/health`, число вопросов, замечания по формуле, вердикт |
 | Замечания отработаны | Собственный PR команды | На каждое замечание проверяющих — ответ правкой или аргументом |
 | PR-процесс | Смерженный PR | Approval сокомандника до merge, комментарии закрыты, есть «Кто что делал» |
-| GitFlow: релиз и `Restrict deletions` | PR релиза в `main` (из `release/*` или `develop` — по `CONTRIBUTING.md` команды); `git ls-remote --heads origin develop` | Стек в `main`; для `release/*` — версия в `main.py` = номер релиза, PR обратного вливания в `develop`; `develop` на месте; повторный отказ на удаление получен, текст в `CONTRIBUTING.md` актуален |
+| GitFlow: релиз и `Restrict deletions` | PR релиза в `main` (из `release/*` или `develop` — по `CONTRIBUTING.md` команды); `git ls-remote --heads origin develop` | Стек в `main`; для `release/*` — версия в `main.py` = номер релиза, PR обратного вливания в `develop`; `develop` на месте; повторный отказ на удаление получен, текст записан в «Защите ветки» `CONTRIBUTING.md` и актуален |
 
 **Что фиксировать по каждой команде** (источник — комментарий-итог команды в её PR, этап 9): ссылка на PR · менеджер зависимостей · кого проверяли / кто проверял · вердикт проверяющих «Воспроизводимость» по стеку этой команды · зачёт или незачёт за этап 7 · ADR 002 «Принято» · для GitFlow — релиз и отказ на удаление `develop` · перенесённые в домашнее задание пункты.
 
@@ -1563,14 +1587,14 @@ curl -i http://localhost:8000/health      # PowerShell: curl.exe -i ...
 
 ### 1. Закрыть незавершённое
 
-Довести до merge всё, что не успели на занятии: PR со стеком, ответы на замечания проверяющей команды, пункты чек-листа самопроверки, названные преподавателем. Если вердикт по воспроизводимости — «незачёт», после правок попросите проверяющую команду повторить холодный запуск. Повторный вердикт они оставляют комментарием в PR с правками (если исходный PR уже смержен — в новом PR), а вы добавляете ссылку на этот комментарий в исходный PR. Командам на GitFlow — синхронизация `develop` с `main` (шаг 1.1), если её не было, затем релиз в `main`, обратное вливание в `develop` и повторная проверка `Restrict deletions` (шаг 8.2), если не успели; текст отказа в разделе «Защита ветки» `CONTRIBUTING.md` обновите, если он отличается от записанного на практике №2. Ситуация D — дописать в ADR 002 «Риски и митигация» и дополнить остальные разделы шаблона. Включённый `Require review from Code Owners`, если на шаге 8.1 правило снималось, — PR в `CODEOWNERS` со вторым владельцем для каждого пути.
+Довести до merge всё, что не успели на занятии: PR со стеком, ответы на замечания проверяющей команды, пункты чек-листа самопроверки, названные преподавателем. Если вердикт по воспроизводимости — «незачёт», после правок попросите проверяющую команду повторить холодный запуск. Повторный вердикт они оставляют комментарием в PR с правками (если исходный PR уже смержен — в новом PR), а вы добавляете ссылку на этот комментарий в исходный PR. Командам на GitFlow — синхронизация `develop` с `main` (шаг 1.1), если её не было, затем релиз в `main`, обратное вливание в `develop` и повторная проверка `Restrict deletions` (шаг 8.2), если не успели; текст отказа на удаление `develop` запишите в раздел «Защита ветки» `CONTRIBUTING.md`, если его там нет, или обновите, если он отличается. Ситуация D — дописать в ADR 002 «Риски и митигация» и дополнить остальные разделы шаблона. Включённый `Require review from Code Owners`, если на шаге 8.1 правило снималось, — PR в `CODEOWNERS` со вторым владельцем для каждого пути.
 
 **Критерий успеха:**
 
 - [ ] PR со стеком смержен, все комментарии ревью закрыты
 - [ ] В вашем PR есть вердикт «Воспроизводимость: зачёт» от проверяющей команды — первый или повторный
 - [ ] ADR 002 в основной ветке: статус «Принято», все разделы шаблона заполнены
-- [ ] GitFlow: стек в `main`, для `release/*` — релиз влит обратно в `develop`; текст отказа на удаление `develop` в `CONTRIBUTING.md`
+- [ ] GitFlow: стек в `main`, для `release/*` — релиз влит обратно в `develop`; текст отказа на удаление `develop` записан в «Защите ветки» `CONTRIBUTING.md`
 
 **Дедлайн:** 3 дня после практики.
 
@@ -1617,3 +1641,11 @@ docker compose run --rm app whoami
 **Дедлайн:** к началу воркшопа №4.
 
 Файл `.env` на вашем ноутбуке не удаляйте: на воркшопе №4 вы продолжите работать с конфигурацией приложения, начиная с него.
+
+---
+
+## История изменений
+
+| Дата | Что изменилось | Что это значит для команд |
+|---|---|---|
+| 2026-10-10 | Шаг 2.1: удаление файлов Poetry и старого `requirements.txt` работает и тогда, когда они не были закоммичены (`git rm -f --ignore-unmatch` и удаление оставшихся файлов). Шаг 8.2: раздел шаблона PR «В какую ветку» — только если он есть в вашем шаблоне. Отказ на удаление `develop` в «Защите ветки» `CONTRIBUTING.md` — «запишите или обновите», сразу или в ДЗ 1: практика №2 до исправления его не требовала. Шаг 8.1: снята ссылка на обещание практики №2 проверить `Restrict deletions`. «Проект уже на uv»: что делать, если `requires-python` не допускает 3.12 | Требования не выросли. Если раздела «В какую ветку» в шаблоне нет — проверьте базовую ветку PR на странице PR |

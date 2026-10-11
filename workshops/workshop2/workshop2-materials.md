@@ -55,3 +55,51 @@
 2. **GitHub Skills**
   🔗 [https://skills.github.com/](https://skills.github.com/)  
    *Официальные бесплатные интерактивные курсы от GitHub с автоматической проверкой прямо в репозитории.*
+
+---
+
+## Домашнее задание
+
+**Что сделать:** довести черновик ADR 001, начатый на воркшопе, и положить его в репозиторий команды **в отдельную ветку** `docs/adr-001-branching-strategy`. Pull Request **не открывайте**: его откроют на практике №2, и он пройдёт межкомандное ревью. Делает один участник — тот, у кого черновик.
+
+**Дедлайн:** до начала практики №2.
+
+1. Ветка от свежего `main`:
+
+   ```bash
+   git checkout main
+   git pull origin main
+   git checkout -b docs/adr-001-branching-strategy
+   mkdir -p docs/adr          # PowerShell: New-Item -ItemType Directory -Force docs/adr
+   ```
+
+2. Скопируйте [шаблон ADR](adr-template.md) в `docs/adr/001-branching-strategy.md` (если черновик писали в другом месте — перенесите его по этому пути) и заполните. Статус — «Предложено». Ориентир оформления — [пример](adr-example.md)
+3. Коммит и push — команды одинаковы в bash и PowerShell:
+
+   ```bash
+   git add docs/adr/001-branching-strategy.md
+   git commit -m "docs: add draft ADR 001 on branching strategy"
+   git push -u origin HEAD
+   ```
+
+   **Ожидаемый вывод** последней команды содержит `* [new branch]      HEAD -> docs/adr-001-branching-strategy` и `branch 'docs/adr-001-branching-strategy' set up to track 'origin/docs/adr-001-branching-strategy'.`
+
+4. GitHub предложит **Compare & pull request** — не нажимайте
+
+**Как проверить:**
+
+```bash
+git ls-remote --heads origin docs/adr-001-branching-strategy
+```
+
+**Ожидаемый вывод:** строка с SHA и `refs/heads/docs/adr-001-branching-strategy`. На странице репозитория в списке веток есть `docs/adr-001-branching-strategy`, открытых PR с ADR нет.
+
+Если репозиторий команды менялся после практики №1 — пришлите преподавателю новую ссылку: по ним строится кольцо ревью на практике №2.
+
+---
+
+## История изменений
+
+| Дата | Что изменилось |
+|---|---|
+| 2026-10-11 | Добавлен раздел «Домашнее задание»: черновик ADR 001 — в отдельной ветке `docs/adr-001-branching-strategy` без PR, PR открывается на практике №2 |
