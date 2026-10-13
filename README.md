@@ -84,7 +84,7 @@ git merge main         # .gitignore ветки teacher сохранится ав
 git worktree repair ../app-conf-teacher
 ```
 
-`.git`-файл в `app-conf-teacher/` и `app-conf/.git/worktrees/app-conf-teacher/gitdir` должны содержать **абсолютные пути той ОС, где ведётся работа** (для этой машины — `C:/Users/Samsung/qwen/projects/app-conf-all/...`).
+`.git`-файл в `app-conf-teacher/` и `app-conf/.git/worktrees/app-conf-teacher/gitdir` должны содержать **абсолютные пути той ОС, где ведётся работа** (вида `C:/Users/<пользователь>/<путь>/app-conf-all/...` на Windows).
 
 ### Remote
 
