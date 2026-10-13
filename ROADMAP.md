@@ -230,12 +230,12 @@ git push -u teacher teacher
 | № | Задача | Файл | Ветка | Приоритет | Статус |
 |---|---|---|---|---|---|
 | 3.1 | Сценарий воркшопа 5 (CI/CD концепции) | `workshops-teacher/workshop5/workshop-5-scenario.md` | teacher | P1 | 📋 TODO |
-| 3.2 | Материалы для самостоятельного изучения (воркшоп 5) | `workshops/workshop5/study-materials.md` | main | P1 | 📋 TODO |
+| 3.2 | Материалы для самостоятельного изучения (воркшоп 5) | `workshops/workshop5/workshop5-materials.md` | main | P1 | 📋 TODO |
 | 3.3 | Шаблон GitHub Actions workflow | `workshops/workshop5/github-actions-template.yml` | main | P1 | 📋 TODO |
 | 3.4 | Инструкция для практики 5 (настройка CI) | `practices/practice5/practice-5-guide.md` | main | P1 | 📋 TODO |
 | 3.5 | Домашнее задание к практике 5 | `home-work-5.md` | main | P2 | 📋 TODO |
 | 3.6 | Сценарий воркшопа 6 (деплой) | `workshops-teacher/workshop6/workshop-6-scenario.md` | teacher | P1 | 📋 TODO |
-| 3.7 | Материалы для самостоятельного изучения (воркшоп 6) | `workshops/workshop6/study-materials.md` | main | P1 | 📋 TODO |
+| 3.7 | Материалы для самостоятельного изучения (воркшоп 6) | `workshops/workshop6/workshop6-materials.md` | main | P1 | 📋 TODO |
 | 3.8 | Шаблон Nginx конфигурации | `workshops/workshop6/nginx-template.conf` | main | P2 | 📋 TODO |
 | 3.9 | Инструкция для практики 6 (деплой на VPS) | `practices/practice6/practice-6-guide.md` | main | P1 | 📋 TODO |
 | 3.10 | Домашнее задание к практике 6 | `home-work-6.md` | main | P2 | 📋 TODO |
@@ -257,7 +257,7 @@ git push -u teacher teacher
 | № | Задача | Файл | Ветка | Приоритет | Статус |
 |---|---|---|---|---|---|
 | 4.1 | Сценарий воркшопа 7 (наблюдаемость) | `workshops-teacher/workshop7/workshop-7-scenario.md` | teacher | P1 | 📋 TODO |
-| 4.2 | Материалы для самостоятельного изучения (воркшоп 7) | `workshops/workshop7/study-materials.md` | main | P1 | 📋 TODO |
+| 4.2 | Материалы для самостоятельного изучения (воркшоп 7) | `workshops/workshop7/workshop7-materials.md` | main | P1 | 📋 TODO |
 | 4.3 | Шаблон настройки structlog | `workshops/workshop7/structlog-template.py` | main | P2 | 📋 TODO |
 | 4.4 | Инструкция для практики 7 (логирование) | `practices/practice7/practice-7-guide.md` | main | P1 | 📋 TODO |
 | 4.5 | Домашнее задание к практике 7 | `home-work-7.md` | main | P2 | 📋 TODO |
@@ -439,6 +439,7 @@ git push -u teacher teacher
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
+| 2026-10-13 | 2.12 | Имена материалов воркшопов 5–7 в задачах 3.2, 3.7, 4.2 приведены к правилу README (`workshopN-materials.md`). Исправлены нумерация ADR в шаблоне и примере ADR (002 — менеджер зависимостей, 003 — конфигурация), формулировка о секретах в `project-requirements.md` и ответ студентам в заметках практики 3 | andrey-limasov |
 | 2026-10-13 | 2.11 | Воркшоп 4 готов: сценарий (2.6) и материалы для самоподготовки (2.7, имя файла `workshop4-materials.md` вместо `study-materials.md` — по правилу README). Решения: воркшоп — проектирование конфигурации и ADR 003, код на `pydantic-settings` — практика 4; сканирование истории на секреты — на воркшопе, pre-commit — на практике 4; утёкший секрет ротируется, история не переписывается. Отклонения от `syllabus.md` (формат и результат недели 7) — в примечании к 2.6–2.7, вход практики 4 — в примечании к 2.9. Название задачи 2.6 приведено к `syllabus.md`. Счётчики: завершено 28, запланировано 18, прогресс 60%, этап 2 — 73%, готовность к неделе 7 — 100%, недель обеспечено — 7 из 16 | andrey-limasov |
 | 2026-10-11 | 2.10 | Практика 3 проверена до проведения на стык с переработанными практиками 1–2 и доработана (примечание к 2.4, 2.11, 2.12); бланк схемы и материалы воркшопа 3 исправлены. Решения: маршруты для команд без схемы, без практики 2 и без приложения; `--author` на общем ноутбуке; несделанный merge и релиз GitFlow — в ДЗ 1 | andrey-limasov |
 | 2026-10-11 | 2.9 | Аудит проведённых практик 1 и 2: обе инструкции переработаны (примечания к 0.5–0.7 и 1.7), точечно исправлены практика 3, шаблон и пример ADR, материалы воркшопа 2 (ДЗ на отдельной ветке), `home-work-1.md`, `project-requirements.md`, неделя 2 в `syllabus.md`, трудоёмкость в README (3 ЗЕТ, 108 ч — как в `syllabus.md`). Решения: команда с одним ноутбуком на практике 2 переносит часть работы в ДЗ 1; задача 1.9 перенесена на следующий поток (P2), этап 1 — 100%. Счётчики: всего ~47, запланировано 20, прогресс 55% | andrey-limasov |
