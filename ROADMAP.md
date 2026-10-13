@@ -6,15 +6,15 @@
 document_type: roadmap
 purpose: tracking_progress_and_planning
 target_audience: course_author
-last_updated: 2026-10-11
-version: 2.10
+last_updated: 2026-10-13
+version: 2.14
 author: andrey-limasov
 related_documents:
   - README.md
   - syllabus.md
   - definition-of-done.md
   - assessment.md
-overall_progress: 55_percent
+overall_progress: 58_percent
 status: in_active_development
 planning_mode: week_relative   # абсолютные даты не используются, пока не зафиксирована дата начала семестра
 semester_start: TBD            # заполнить: понедельник недели 1
@@ -41,11 +41,11 @@ semester_start: TBD            # заполнить: понедельник не
 
 | Показатель | Значение |
 |---|---|
-| Всего запланировано документов | ~47 |
+| Всего запланировано документов | ~48 |
 | Завершено (закоммичено в git) | 28 |
 | В работе | 0 |
-| Запланировано | 18 |
-| Общий прогресс | **60%** |
+| Запланировано | 19 |
+| Общий прогресс | **58%** |
 | Готовность к неделе 1 (воркшоп 1) | ✅ 100% |
 | Готовность к неделе 2 (практика 1) | ✅ 100% |
 | Готовность к неделе 3 (воркшоп 2) | ✅ 100% |
@@ -223,55 +223,65 @@ git push -u teacher teacher
 
 ---
 
-## 🚀 Этап 3: Модуль 3 — CI/CD и деплой (недели 9-12) — 📋 ЗАПЛАНИРОВАН
+## 🚀 Этап 3: Модуль 3 — Автоматизация и CI/CD (недели 9-12) — 📋 ЗАПЛАНИРОВАН
 
 **Прогресс:** 0%
 
 | № | Задача | Файл | Ветка | Приоритет | Статус |
 |---|---|---|---|---|---|
-| 3.1 | Сценарий воркшопа 5 (CI/CD концепции) | `workshops-teacher/workshop5/workshop-5-scenario.md` | teacher | P1 | 📋 TODO |
+| 3.1 | Сценарий воркшопа 5 (философия CI/CD: пайплайны, джобы, артефакты) | `workshops-teacher/workshop5/workshop-5-scenario.md` | teacher | P1 | 📋 TODO |
 | 3.2 | Материалы для самостоятельного изучения (воркшоп 5) | `workshops/workshop5/workshop5-materials.md` | main | P1 | 📋 TODO |
-| 3.3 | Шаблон GitHub Actions workflow | `workshops/workshop5/github-actions-template.yml` | main | P1 | 📋 TODO |
-| 3.4 | Инструкция для практики 5 (настройка CI) | `practices/practice5/practice-5-guide.md` | main | P1 | 📋 TODO |
+| 3.3 | Шаблон GitHub Actions workflow (стадия lint; тесты и публикацию образа команды дописывают на практике 6) | `workshops/workshop5/github-actions-template.yml` | main | P1 | 📋 TODO |
+| 3.4 | Инструкция для практики 5 (базовый workflow, линтер и статический анализ, блокировка merge) | `practices/practice5/practice-5-guide.md` | main | P1 | 📋 TODO |
 | 3.5 | Домашнее задание к практике 5 | `home-work-5.md` | main | P2 | 📋 TODO |
-| 3.6 | Сценарий воркшопа 6 (деплой) | `workshops-teacher/workshop6/workshop-6-scenario.md` | teacher | P1 | 📋 TODO |
+| 3.6 | Сценарий воркшопа 6 (тестирование и сборка в CI: pytest, service-контейнеры, публикация артефактов) | `workshops-teacher/workshop6/workshop-6-scenario.md` | teacher | P1 | 📋 TODO |
 | 3.7 | Материалы для самостоятельного изучения (воркшоп 6) | `workshops/workshop6/workshop6-materials.md` | main | P1 | 📋 TODO |
-| 3.8 | Шаблон Nginx конфигурации | `workshops/workshop6/nginx-template.conf` | main | P2 | 📋 TODO |
-| 3.9 | Инструкция для практики 6 (деплой на VPS) | `practices/practice6/practice-6-guide.md` | main | P1 | 📋 TODO |
+| 3.8 | Шаблон Nginx конфигурации | — | — | — | ❌ DEFERRED (2026-10-13) — перенесена в этап 4 как 4.12 |
+| 3.9 | Инструкция для практики 6 (pytest с PostgreSQL, миграции Alembic, публикация Docker-образа в реестр, «Сломать и починить») | `practices/practice6/practice-6-guide.md` | main | P1 | 📋 TODO |
 | 3.10 | Домашнее задание к практике 6 | `home-work-6.md` | main | P2 | 📋 TODO |
+
+**Примечание к этапам 3–4 (2026-10-13):** раскладка приведена к `syllabus.md`. Модуль 3 — только CI: воркшоп 6 и практика 6 — тесты, сборка и публикация образа вместо деплоя. Деплой, reverse-proxy и наблюдаемость — воркшоп 7 и практика 7, документация — воркшоп 8, репетиция и защита — практика 8. Имена файлов не менялись: номера занятий и недели те же. Миграции Alembic — практика 6, автодеплой — практика 7 (решения строки 2.13). Шаблон GitHub Actions (3.3) один на модуль: практика 5 использует стадию lint, практика 6 добавляет тесты и публикацию образа.
 
 ### Критерии завершения этапа
 - [ ] Все материалы для недель 9-12 готовы и закоммичены
-- [ ] GitHub Actions workflow протестирован на учебном репозитории
-- [ ] Деплой на VPS работает с первого раза, HTTPS через Let's Encrypt
+- [ ] GitHub Actions workflow (lint, тесты с PostgreSQL, публикация образа) протестирован на учебном репозитории
+- [ ] Сценарий «Сломать и починить» проверен на учебном репозитории
 
 ### Внешняя зависимость
-- Доступ к VPS для преподавателя и студентов — уточнить не позже недели 7
+- Реестр образов (GHCR или Docker Hub) для команд — уточнить до недели 10
 
 ---
 
-## 🔍 Этап 4: Модуль 4 — Наблюдаемость и защита (недели 13-16) — 📋 ЗАПЛАНИРОВАН
+## 🔍 Этап 4: Модуль 4 — Деплой, наблюдаемость и защита (недели 13-16) — 📋 ЗАПЛАНИРОВАН
 
 **Прогресс:** 0%
 
 | № | Задача | Файл | Ветка | Приоритет | Статус |
 |---|---|---|---|---|---|
-| 4.1 | Сценарий воркшопа 7 (наблюдаемость) | `workshops-teacher/workshop7/workshop-7-scenario.md` | teacher | P1 | 📋 TODO |
+| 4.1 | Сценарий воркшопа 7 (стратегии деплоя и наблюдаемость: VPS, reverse-proxy, структурированные логи, health-check) | `workshops-teacher/workshop7/workshop-7-scenario.md` | teacher | P1 | 📋 TODO |
 | 4.2 | Материалы для самостоятельного изучения (воркшоп 7) | `workshops/workshop7/workshop7-materials.md` | main | P1 | 📋 TODO |
 | 4.3 | Шаблон настройки structlog | `workshops/workshop7/structlog-template.py` | main | P2 | 📋 TODO |
-| 4.4 | Инструкция для практики 7 (логирование) | `practices/practice7/practice-7-guide.md` | main | P1 | 📋 TODO |
+| 4.4 | Инструкция для практики 7 (развёртывание на сервере, reverse-proxy и HTTPS, автодеплой, логи, health-check) | `practices/practice7/practice-7-guide.md` | main | P1 | 📋 TODO |
 | 4.5 | Домашнее задание к практике 7 | `home-work-7.md` | main | P2 | 📋 TODO |
-| 4.6 | Сценарий воркшопа 8 (репетиция защиты) | `workshops-teacher/workshop8/workshop-8-scenario.md` | teacher | P1 | 📋 TODO |
-| 4.7 | Чек-лист для репетиции защиты | `workshops/workshop8/rehearsal-checklist.md` | main | P1 | 📋 TODO |
-| 4.8 | Инструкция для практики 8 (финальная проверка) | `practices/practice8/practice-8-guide.md` | main | P1 | 📋 TODO |
+| 4.6 | Сценарий воркшопа 8 (документация как артефакт: README, ADR, OpenAPI) | `workshops-teacher/workshop8/workshop-8-scenario.md` | teacher | P1 | 📋 TODO |
+| 4.7 | Чек-лист для репетиции защиты (практика 8) | `practices/practice8/rehearsal-checklist.md` | main | P1 | 📋 TODO |
+| 4.8 | Инструкция для практики 8 (финализация документации, репетиция, межкомандный peer review по DoD, итоговая защита) | `practices/practice8/practice-8-guide.md` | main | P1 | 📋 TODO |
 | 4.9 | Листы оценки для защиты | `workshops-teacher/defense/evaluation-sheets.md` | teacher | P1 | 📋 TODO |
 | 4.10 | Сценарий защиты проектов | `workshops-teacher/defense/defense-scenario.md` | teacher | P1 | 📋 TODO |
 | 4.11 | Сводная ведомость | `workshops-teacher/defense/summary-sheet.md` | teacher | P2 | 📋 TODO |
+| 4.12 | Шаблон Nginx конфигурации (перенесена из 3.8) | `workshops/workshop7/nginx-template.conf` | main | P2 | 📋 TODO |
+| 4.13 | Материалы для самостоятельного изучения (воркшоп 8) | `workshops/workshop8/workshop8-materials.md` | main | P1 | 📋 TODO |
+
+**Примечание к 4.7, 4.12, 4.13 (2026-10-13):** репетиция защиты по `syllabus.md` — на практике 8 (неделя 16), поэтому чек-лист 4.7 перенесён из `workshops/workshop8/` в `practices/practice8/` (файл не создавался, ссылок на него нет). Шаблон Nginx нужен к воркшопу 7 и практике 7 — задача 3.8 перенесена в 4.12, папка `workshop7`. Для воркшопа 8 не было задачи на материалы самоподготовки — добавлена 4.13. Домашнего задания к практике 8 нет: это неделя защиты.
 
 ### Критерии завершения этапа
 - [ ] Все материалы для недель 13-16 готовы и закоммичены
+- [ ] Деплой на VPS работает с первого раза, HTTPS через Let's Encrypt или аналог
 - [ ] Листы оценки протестированы на учебном примере
 - [ ] Сценарий защиты согласован со студентами
+
+### Внешняя зависимость
+- Доступ к VPS для преподавателя и студентов — уточнить не позже недели 7
 
 ---
 
@@ -285,10 +295,10 @@ git push -u teacher teacher
 | 2 | Стратегии ветвления Git (peer teaching) | 3 | ✅ DONE | `workshops-teacher/workshop2/` + `workshops/workshop2/` |
 | 3 | Контейнеризация и оркестрация (Docker, Compose) | 5 | ✅ DONE | `workshops-teacher/workshop3/` + `workshops/workshop3/` |
 | 4 | 12-Factor App и безопасность | 7 | ✅ DONE (2026-10-13) | `workshops-teacher/workshop4/` + `workshops/workshop4/` |
-| 5 | CI/CD концепции и практика | 9 | 📋 TODO | `workshops-teacher/workshop5/` |
-| 6 | Деплой на VPS | 11 | 📋 TODO | `workshops-teacher/workshop6/` |
-| 7 | Наблюдаемость (логи, health-check) | 13 | 📋 TODO | `workshops-teacher/workshop7/` |
-| 8 | Репетиция защиты | 15 | 📋 TODO | `workshops-teacher/workshop8/` |
+| 5 | Философия CI/CD: пайплайны, джобы, артефакты | 9 | 📋 TODO | `workshops-teacher/workshop5/` |
+| 6 | Тестирование и сборка в CI | 11 | 📋 TODO | `workshops-teacher/workshop6/` |
+| 7 | Стратегии деплоя и наблюдаемость | 13 | 📋 TODO | `workshops-teacher/workshop7/` |
+| 8 | Документация как артефакт (README, ADR, OpenAPI) | 15 | 📋 TODO | `workshops-teacher/workshop8/` |
 
 ### Практики (8 основных)
 
@@ -298,10 +308,10 @@ git push -u teacher teacher
 | 2 | Branch protection, PR-процесс и приёмка ADR | 4 | ✅ DONE | `practices/practice2/practice-2-guide.md` |
 | 3 | Dockerfile, менеджер зависимостей, Compose | 6 | ✅ DONE (2026-10-05) | `practices/practice3/practice-3-guide.md` |
 | 4 | pydantic-settings, оптимизация образа, pre-commit | 8 | 📋 TODO | `practices/practice4/practice-4-guide.md` |
-| 5 | Настройка CI/CD | 10 | 📋 TODO | `practices/practice5/practice-5-guide.md` |
-| 6 | Деплой на VPS | 12 | 📋 TODO | `practices/practice6/practice-6-guide.md` |
-| 7 | Логирование и health-check | 14 | 📋 TODO | `practices/practice7/practice-7-guide.md` |
-| 8 | Финальная проверка | 16 | 📋 TODO | `practices/practice8/practice-8-guide.md` |
+| 5 | Базовый workflow, линтер и статический анализ | 10 | 📋 TODO | `practices/practice5/practice-5-guide.md` |
+| 6 | Тесты, публикация Docker-образа в реестр, «Сломать и починить» | 12 | 📋 TODO | `practices/practice6/practice-6-guide.md` |
+| 7 | Развёртывание на сервере, reverse-proxy, логи, health-check | 14 | 📋 TODO | `practices/practice7/practice-7-guide.md` |
+| 8 | Финализация документации, репетиция, peer review по DoD, итоговая защита | 16 | 📋 TODO | `practices/practice8/practice-8-guide.md` |
 | 9-16 | Резервные практики | — | ❌ DEFERRED | — |
 
 ### Домашние задания
@@ -311,7 +321,7 @@ git push -u teacher teacher
 | 1 | Практика 1 | ✅ DONE | `home-work-1.md` |
 | 2 | Практика 2 | ✅ DONE (2026-09-21) | `practices/practice2/practice-2-guide.md`, раздел «Домашнее задание» |
 | 3 | Практика 3 | ✅ DONE (2026-10-05) | `practices/practice3/practice-3-guide.md`, раздел «Домашнее задание» |
-| 4-8 | Практики 4-8 | 📋 TODO | `home-work-4.md` … `home-work-8.md` |
+| 4-7 | Практики 4-7 | 📋 TODO | `home-work-4.md` … `home-work-7.md` (к практике 8 ДЗ нет — неделя защиты) |
 
 ---
 
@@ -361,8 +371,8 @@ git push -u teacher teacher
 | Текущая неделя | 2.9 практика 4 (неделя 8) |
 | +1 неделя | 2.8, 2.9, 2.10 (материалы недели 8) |
 | +2…+3 недели | Резерв этапа 2: доработка 2.6–2.10 по итогам недель 6–7 |
-| +4…+6 недель | Этап 3 (модуль CI/CD) |
-| +7…+9 недель | Этап 4 (наблюдаемость и защита) |
+| +4…+6 недель | Этап 3 (автоматизация и CI/CD) |
+| +7…+9 недель | Этап 4 (деплой, наблюдаемость и защита) |
 | +10 недель | Резерв: доработка, тестирование шаблонов |
 
 ---
@@ -396,10 +406,10 @@ git push -u teacher teacher
 
 | Метрика | Текущее значение | Целевое значение |
 |---|---|---|
-| Всего документов закоммичено | 28 / ~47 | 47 / 47 |
+| Всего документов закоммичено | 28 / ~48 | 48 / 48 |
 | Воркшопов готово | 4 / 8 | 8 / 8 |
 | Практик готово | 3 / 8 | 8 / 8 |
-| Домашних заданий готово | 3 / 8 | 8 / 8 |
+| Домашних заданий готово | 3 / 7 | 7 / 7 |
 | Недель обеспечено материалами | 7 / 16 | 16 / 16 |
 
 ### Качественные
@@ -439,6 +449,7 @@ git push -u teacher teacher
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
+| 2026-10-13 | 2.14 | Этапы 3–4 и сводные таблицы приведены к тематическому плану `syllabus.md`: воркшоп 6 — тестирование и сборка в CI, практика 6 — тесты, публикация образа и «Сломать и починить» (3.6–3.9); воркшоп 7 — стратегии деплоя и наблюдаемость, практика 7 — развёртывание, reverse-proxy, логи, health-check (4.1–4.4); воркшоп 8 — документация как артефакт, практика 8 — финализация, репетиция, peer review по DoD и защита (4.6–4.8). Названия этапов 3–4 — по `syllabus.md`. Имена файлов не менялись. Решения: шаблон GitHub Actions (3.3) один на модуль 3; шаблон Nginx перенесён из 3.8 в 4.12 (`workshops/workshop7/`); чек-лист репетиции (4.7) перенесён в `practices/practice8/`; добавлена 4.13 — материалы воркшопа 8; ДЗ к практике 8 не планируется. Критерий «Деплой на VPS» и зависимость «доступ к VPS» перенесены в этап 4, в этап 3 добавлены критерий «Сломать и починить» и зависимость «реестр образов». Метаданные исправлены (были 2.10, 2026-10-11, 55%). Счётчики: всего ~48, запланировано 19, прогресс 58%, домашних заданий — 3 из 7 | andrey-limasov |
 | 2026-10-13 | 2.13 | «Этапы реализации» в `project-requirements.md` приведены к `syllabus.md`: Docker и Compose — неделя 6, 12-Factor и ADR 003 — неделя 7, `pydantic-settings`, оптимизация образа и pre-commit — неделя 8, автодеплой — недели 13–14. Решения: миграции Alembic — недели 11–12 (уточнение итога 2.4 «модуль 3»); MVP — параллельный трек без отдельных занятий, CRUD на ORM к неделе 11, остальное к неделе 14. Объявить студентам | andrey-limasov |
 | 2026-10-13 | 2.12 | Имена материалов воркшопов 5–7 в задачах 3.2, 3.7, 4.2 приведены к правилу README (`workshopN-materials.md`). Исправлены нумерация ADR в шаблоне и примере ADR (002 — менеджер зависимостей, 003 — конфигурация), формулировка о секретах в `project-requirements.md` и ответ студентам в заметках практики 3 | andrey-limasov |
 | 2026-10-13 | 2.11 | Воркшоп 4 готов: сценарий (2.6) и материалы для самоподготовки (2.7, имя файла `workshop4-materials.md` вместо `study-materials.md` — по правилу README). Решения: воркшоп — проектирование конфигурации и ADR 003, код на `pydantic-settings` — практика 4; сканирование истории на секреты — на воркшопе, pre-commit — на практике 4; утёкший секрет ротируется, история не переписывается. Отклонения от `syllabus.md` (формат и результат недели 7) — в примечании к 2.6–2.7, вход практики 4 — в примечании к 2.9. Название задачи 2.6 приведено к `syllabus.md`. Счётчики: завершено 28, запланировано 18, прогресс 60%, этап 2 — 73%, готовность к неделе 7 — 100%, недель обеспечено — 7 из 16 | andrey-limasov |
