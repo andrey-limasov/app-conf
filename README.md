@@ -122,9 +122,12 @@ practices/
 │   └── practice-1-guide-teacher.md  # только teacher: заметки преподавателя
 ├── practice2/
 │   └── practice-2-guide.md          # обе ветки: инструкция для студентов
-└── practice3/
-    ├── practice-3-guide.md          # обе ветки: инструкция для студентов
-    └── practice-3-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
+├── practice3/
+│   ├── practice-3-guide.md          # обе ветки: инструкция для студентов
+│   └── practice-3-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
+└── practice4/
+    ├── practice-4-guide.md          # обе ветки: инструкция для студентов
+    └── practice-4-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
 ```
 
 **Принцип именования:** `practice{N}/practice-{N}-guide.md`, преподавательская версия — `practice-{N}-guide-teacher.md`
@@ -239,7 +242,9 @@ syllabus.md
 │   │   └── домашнее задание — раздел внутри practice-2-guide.md (отдельного файла нет)
 │   ├── practice3/ (Dockerfile, менеджер зависимостей, стек в Compose)
 │   │   └── домашнее задание — раздел внутри practice-3-guide.md (отдельного файла нет)
-│   └── ... (practice4-practice8)
+│   ├── practice4/ (конфигурация и секреты, pre-commit, оптимизация образа)
+│   │   └── домашнее задание и образец Dockerfile — внутри practice-4-guide.md (отдельных файлов нет)
+│   └── ... (practice5-practice8)
 └── workshops/
     ├── workshop1/ (инициация проекта) — сценарий в workshops-teacher/
     ├── workshop2/ (стратегии ветвления, peer teaching)
