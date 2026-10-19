@@ -1,0 +1,214 @@
+# Шаблон CI-пайплайна курса «Управление конфигурацией бизнес-приложений», модуль 3.
+#
+# Здесь этот файл не запускается: GitHub выполняет только workflow из папки
+# .github/workflows/ вашего репозитория.
+#
+#   Воркшоп №5  — читаете и размечаете (материалы воркшопа №5, раздел 5.3).
+#   Практика №5 — копируете в .github/workflows/ci.yml и адаптируете по ADR 004 команды:
+#                 джобы lint и secrets.
+#   Практика №6 — раскомментируете test, build, publish.
+#
+# До практики №5 в .github/workflows/ не копируйте: джоб lint запускает ruff и mypy
+# из dev-зависимостей проекта, а их добавляют на практике №5.
+#
+# Имена джобов lint, secrets, test, build, publish не меняйте: по этим именам
+# ruleset выбирает обязательные проверки («Require status checks to pass»).
+# Переименованный джоб — это новая проверка, а старая будет ждать вечно.
+#
+# Строки, которые меняются под команду, помечены «АДАПТИРОВАТЬ».
+#
+# Версии actions указаны по major-тегу издателя (@v7): исправления приходят сами.
+# Строже — закрепить по SHA коммита с версией в комментарии, как в документации GitHub
+# «Secure use reference» → «Using third-party actions».
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]            # АДАПТИРОВАТЬ: GitFlow — [main, develop]
+  push:
+    branches: [main]            # АДАПТИРОВАТЬ: GitFlow — [main, develop]
+
+# Права токена GITHUB_TOKEN по умолчанию — только чтение кода.
+# Запись в реестр (packages: write) получает только джоб publish.
+permissions:
+  contents: read
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # lint — стиль, форматирование, типы (DoD 4 «Линтинг и форматирование»).
+  # Практика №5. Обязательная проверка ruleset с практики №5.
+  # ---------------------------------------------------------------------------
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      # --- Вариант uv (по умолчанию) ---
+      # Версию Python uv берёт из .python-version.
+      # У setup-uv нет тега major-версии — указана полная версия.
+      - uses: astral-sh/setup-uv@v10.3.0
+        # Файла .python-version нет — уберите «# » в начале двух строк ниже:
+        # with:
+        #   python-version: "3.12"      # АДАПТИРОВАТЬ: версия из README
+
+      - name: Install dependencies
+        run: uv sync --locked         # --locked: падает, если uv.lock не совпадает с pyproject.toml
+
+      - name: ruff check
+        run: uv run ruff check .
+
+      - name: ruff format --check
+        run: uv run ruff format --check .   # аналог black: только проверка, файлы не меняет
+
+      - name: mypy
+        run: uv run mypy .
+
+      # --- Вариант Poetry: удалите пять шагов uv выше (от setup-uv до mypy) и раскомментируйте блок ---
+      # - name: Install Poetry
+      #   run: pipx install poetry==2.5.1   # АДАПТИРОВАТЬ: ваша версия Poetry (poetry --version)
+      #
+      # - uses: actions/setup-python@v7     # после установки Poetry: иначе cache: poetry не работает
+      #   with:
+      #     python-version: "3.12"          # АДАПТИРОВАТЬ: версия из README / ARG PYTHON_VERSION
+      #     cache: poetry
+      #
+      # - name: Install dependencies
+      #   run: poetry install --no-interaction
+      #
+      # - name: ruff check
+      #   run: poetry run ruff check .
+      #
+      # - name: ruff format --check
+      #   run: poetry run ruff format --check .
+      #
+      # - name: mypy
+      #   run: poetry run mypy .
+
+  # ---------------------------------------------------------------------------
+  # secrets — сканер секретов по файлам ветки (DoD 1 и 2: секреты не коммитятся).
+  # Практика №5. Обязательная проверка ruleset с практики №5.
+  #
+  # Сканер запускается напрямую, а не через pre-commit: хук gitleaks с --staged
+  # в `pre-commit run --all-files` ничего не сканирует, а хук language: system
+  # на раннере без программы gitleaks не запустится.
+  # ---------------------------------------------------------------------------
+  secrets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        # Полная история (блок «вся история» ниже) — раскомментируйте:
+        # with:
+        #   fetch-depth: 0
+
+      # --- gitleaks: текущие файлы ветки PR (по умолчанию) ---
+      # dir — файлы рабочей папки; каталог .git сканер пропускает сам.
+      # В раннере после checkout только файлы из git: .env и .venv там нет.
+      # Ложное срабатывание — отпечаток из вывода (`файл:правило:строка`) в .gitleaksignore.
+      - name: gitleaks (files)
+        run: >-
+          docker run --rm -v "$GITHUB_WORKSPACE:/repo:ro" -w /repo
+          zricethezav/gitleaks:v8.28.0
+          dir . --redact --no-banner --no-color -v
+
+      # --- gitleaks: вся история (по решению ADR 004 команды) ---
+      # Нужен fetch-depth: 0 в checkout выше. Находки истории, записанные
+      # в .gitleaksignore на практике №4, проверку не останавливают.
+      # Три ключа -e — как в pre-commit практики №4: git в контейнере доверяет папке.
+      # - name: gitleaks (history)
+      #   run: >-
+      #     docker run --rm -v "$GITHUB_WORKSPACE:/repo:ro" -w /repo
+      #     -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0='*'
+      #     zricethezav/gitleaks:v8.28.0
+      #     git . --redact --no-banner --no-color -v
+
+      # --- detect-secrets: замените шаг «gitleaks (files)» на этот ---
+      # Проверяет файлы из git, сверяясь с .secrets.baseline. Историю не смотрит:
+      # для неё — блок «gitleaks: вся история» и .gitleaksignore с находками истории.
+      # pragma в строке run — чтобы detect-secrets не принял сам этот шаг за секрет.
+      # - name: detect-secrets (files)
+      #   run: >-  # pragma: allowlist secret
+      #     git ls-files -z | xargs -0
+      #     pipx run --spec detect-secrets==1.5.0
+      #     detect-secrets-hook --baseline .secrets.baseline
+
+  # ---------------------------------------------------------------------------
+  # test — pytest с сервис-контейнером PostgreSQL (DoD 4 «Тестирование»).
+  # Практика №6: раскомментировать и дописать по воркшопу №6.
+  # «pragma: allowlist secret» — пометка для detect-secrets: строка проверена, секрета нет.
+  # ---------------------------------------------------------------------------
+  # test:
+  #   needs: lint                         # тесты не запускаются, пока не прошёл lint
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   services:
+  #     postgres:
+  #       image: postgres:16              # АДАПТИРОВАТЬ: та же версия, что в compose.yaml
+  #       env:
+  #         POSTGRES_PASSWORD: postgres   # одноразовая база раннера  # pragma: allowlist secret
+  #       ports:
+  #         - 5432:5432
+  #       options: >-
+  #         --health-cmd pg_isready
+  #         --health-interval 5s
+  #         --health-timeout 5s
+  #         --health-retries 10
+  #   env:
+  #     APP_ENV: dev
+  #     DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres  # pragma: allowlist secret
+  #   steps:
+  #     - uses: actions/checkout@v7
+  #     - uses: astral-sh/setup-uv@v10.3.0  # Poetry — шаги установки как в lint
+  #     - run: uv sync --locked
+  #     - run: uv run pytest                # покрытие (DoD 4: не меньше 60 %) и миграции — воркшоп №6
+
+  # ---------------------------------------------------------------------------
+  # build — сборка Docker-образа без публикации (DoD 4 «Сборка артефактов»).
+  # Практика №6.
+  # ---------------------------------------------------------------------------
+  # build:
+  #   needs: [lint, secrets]              # после практики №6: [lint, secrets, test]
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   steps:
+  #     - uses: actions/checkout@v7
+  #     - run: docker build -t app:${{ github.sha }} .
+
+  # ---------------------------------------------------------------------------
+  # publish — публикация образа в GitHub Container Registry (ghcr.io).
+  # Только push в main, после merge; на PR не запускается и обязательной проверкой
+  # ruleset не бывает. Практика №6.
+  # ---------------------------------------------------------------------------
+  # publish:
+  #   needs: build
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   timeout-minutes: 15
+  #   permissions:
+  #     contents: read
+  #     packages: write                   # только здесь: запись в реестр
+  #   steps:
+  #     - uses: actions/checkout@v7
+  #
+  #     - uses: docker/login-action@v4
+  #       with:
+  #         registry: ghcr.io
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #     - id: meta
+  #       uses: docker/metadata-action@v6
+  #       with:
+  #         images: ghcr.io/${{ github.repository }}
+  #         tags: |
+  #           type=sha,format=long
+  #           # тег версии — если выбран в ADR 004; как получить версию из источника ADR 003 — воркшоп №6
+  #
+  #     - uses: docker/build-push-action@v7
+  #       with:
+  #         context: .
+  #         push: true
+  #         tags: ${{ steps.meta.outputs.tags }}
+  #         labels: ${{ steps.meta.outputs.labels }}
