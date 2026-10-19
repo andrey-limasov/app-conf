@@ -25,8 +25,8 @@ tech_stack:
 repository_structure: dual_branch_via_worktree
   branch_main: student_facing_materials, public
   branch_teacher: instructor_materials, private
-version: 1.4
-last_updated: 2026-09-29
+version: 1.12
+last_updated: 2026-10-19
 author: andrey-limasov
 license: MIT
 ```
@@ -476,16 +476,19 @@ feat: add ADR 001 for branching strategy
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
-| 2026-10-19 | 1.9 | GitLab убран: в метаданных `ci_cd` — только GitHub Actions, в глоссарии Branch Protection — GitHub | andrey-limasov |
+| 2026-10-19 | 1.12 | GitLab убран: в метаданных `ci_cd` — только GitHub Actions, в глоссарии Branch Protection — GitHub | andrey-limasov |
+| 2026-10-19 | 1.11 | Добавлены материалы воркшопа 5: `workshops/workshop5/` (материалы для самоподготовки и шаблон GitHub Actions, обе ветки) и `workshops-teacher/workshop5/` | andrey-limasov |
+| 2026-10-14 | 1.10 | Добавлена практика 4 в структуру `practices/` и граф связей; домашнее задание и образец Dockerfile — внутри `practice-4-guide.md` | andrey-limasov |
+| 2026-10-13 | 1.9 | «Восстановление worktree после переноса папки»: пример пути заменён на шаблон без личных путей машины | andrey-limasov |
 | 2026-10-13 | 1.8 | Шаблон сценария воркшопа: добавлен обязательный раздел «Чек-лист для преподавателя» (его требует раздел «Структура документов») | andrey-limasov |
 | 2026-10-13 | 1.7 | Добавлены материалы воркшопа 4: `workshops/workshop4/` (обе ветки) и `workshops-teacher/workshop4/` | andrey-limasov |
 | 2026-10-11 | 1.6 | Метаданные: трудоёмкость `3_ZET, 108_hours` вместо `4_ZET, 144_hours` — по `syllabus.md` (16 + 32 + 60 ч) | andrey-limasov |
 | 2026-10-05 | 1.5 | Добавлена практика 3 в структуру `practices/` и граф связей | andrey-limasov |
 | 2026-09-29 | 1.4 | Добавлены материалы воркшопа 3: `workshops/workshop3/` (обе ветки) и `workshops-teacher/workshop3/` | andrey-limasov |
-| 2025-02-15 | 1.0 | Первоначальная версия | andrey-limasov |
 | 2026-09-20 | 1.3 | Шаблон и пример ADR перенесены из `workshops-teacher/workshop2/` в `workshops/workshop2/` (обе ветки, единственный источник); добавлен лист фиксации межкомандного ревью в `workshops-teacher/practice2/` | andrey-limasov |
 | 2026-09-20 | 1.2 | Добавлена практика 2 в структуру `practices/` и граф связей | andrey-limasov |
 | 2026-09-20 | 1.1 | README и ROADMAP внесены в репозиторий; описана модель веток, правило синхронизации и восстановление worktree; структура приведена в соответствие с фактическим состоянием; правило именования исправлено на kebab-case | andrey-limasov |
+| 2025-02-15 | 1.0 | Первоначальная версия | andrey-limasov |
 
 ---
 
