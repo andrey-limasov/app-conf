@@ -25,7 +25,7 @@ tech_stack:
 repository_structure: dual_branch_via_worktree
   branch_main: student_facing_materials, public
   branch_teacher: instructor_materials, private
-version: 1.12
+version: 1.13
 last_updated: 2026-10-19
 author: andrey-limasov
 license: MIT
@@ -91,9 +91,9 @@ git worktree repair ../app-conf-teacher
 | Remote | URL | Назначение |
 |---|---|---|
 | `student` | https://github.com/andrey-limasov/app-conf | Ветка `main`, публичный репозиторий для студентов |
-| `teacher` | **не настроен** | Планируется приватный репозиторий для ветки `teacher` |
+| `teacher` | приватный репозиторий `app-conf-teacher` | Ветка `teacher`, доступ только у преподавателя |
 
-Пока remote `teacher` не создан, ветка `teacher` существует только локально — единственная копия преподавательских материалов находится на рабочей машине. Это основной риск проекта.
+После каждого `git merge main` в рабочей папке `app-conf-teacher/` ветку `teacher` нужно отправить: `git push teacher teacher`.
 
 ---
 
@@ -476,6 +476,7 @@ feat: add ADR 001 for branching strategy
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
+| 2026-10-19 | 1.13 | Настроен remote `teacher` — приватный репозиторий для ветки `teacher` | andrey-limasov |
 | 2026-10-19 | 1.12 | GitLab убран: в метаданных `ci_cd` — только GitHub Actions, в глоссарии Branch Protection — GitHub | andrey-limasov |
 | 2026-10-19 | 1.11 | Добавлены материалы воркшопа 5: `workshops/workshop5/` (материалы для самоподготовки и шаблон GitHub Actions, обе ветки) и `workshops-teacher/workshop5/` | andrey-limasov |
 | 2026-10-14 | 1.10 | Добавлена практика 4 в структуру `practices/` и граф связей; домашнее задание и образец Dockerfile — внутри `practice-4-guide.md` | andrey-limasov |
