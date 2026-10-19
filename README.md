@@ -18,7 +18,7 @@ tech_stack:
   database: PostgreSQL
   orm: SQLAlchemy + Alembic
   containerization: Docker + Docker Compose
-  ci_cd: GitHub Actions / GitLab CI
+  ci_cd: GitHub Actions
   linting: ruff, black, mypy
   testing: pytest, min_coverage_60_percent
   logging: structlog / loguru
