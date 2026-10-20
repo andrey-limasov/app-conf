@@ -25,8 +25,8 @@ tech_stack:
 repository_structure: dual_branch_via_worktree
   branch_main: student_facing_materials, public
   branch_teacher: instructor_materials, private
-version: 1.13
-last_updated: 2026-10-19
+version: 1.14
+last_updated: 2026-10-21
 author: andrey-limasov
 license: MIT
 ```
@@ -125,9 +125,12 @@ practices/
 ├── practice3/
 │   ├── practice-3-guide.md          # обе ветки: инструкция для студентов
 │   └── practice-3-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
-└── practice4/
-    ├── practice-4-guide.md          # обе ветки: инструкция для студентов
-    └── practice-4-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
+├── practice4/
+│   ├── practice-4-guide.md          # обе ветки: инструкция для студентов
+│   └── practice-4-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
+└── practice5/
+    ├── practice-5-guide.md          # обе ветки: инструкция для студентов
+    └── practice-5-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
 ```
 
 **Принцип именования:** `practice{N}/practice-{N}-guide.md`, преподавательская версия — `practice-{N}-guide-teacher.md`
@@ -249,7 +252,9 @@ syllabus.md
 │   │   └── домашнее задание — раздел внутри practice-3-guide.md (отдельного файла нет)
 │   ├── practice4/ (конфигурация и секреты, pre-commit, оптимизация образа)
 │   │   └── домашнее задание и образец Dockerfile — внутри practice-4-guide.md (отдельных файлов нет)
-│   └── ... (practice5-practice8)
+│   ├── practice5/ (базовый workflow: линтер, статический анализ, блокировка merge)
+│   │   └── домашнее задание — раздел внутри practice-5-guide.md (отдельного файла нет)
+│   └── ... (practice6-practice8)
 └── workshops/
     ├── workshop1/ (инициация проекта) — сценарий в workshops-teacher/
     ├── workshop2/ (стратегии ветвления, peer teaching)
@@ -476,6 +481,7 @@ feat: add ADR 001 for branching strategy
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
+| 2026-10-21 | 1.14 | Добавлена практика 5 в структуру `practices/` и граф связей; домашнее задание — внутри `practice-5-guide.md` | andrey-limasov |
 | 2026-10-19 | 1.13 | Настроен remote `teacher` — приватный репозиторий для ветки `teacher` | andrey-limasov |
 | 2026-10-19 | 1.12 | GitLab убран: в метаданных `ci_cd` — только GitHub Actions, в глоссарии Branch Protection — GitHub | andrey-limasov |
 | 2026-10-19 | 1.11 | Добавлены материалы воркшопа 5: `workshops/workshop5/` (материалы для самоподготовки и шаблон GitHub Actions, обе ветки) и `workshops-teacher/workshop5/` | andrey-limasov |
