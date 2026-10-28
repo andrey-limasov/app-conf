@@ -25,8 +25,8 @@ tech_stack:
 repository_structure: dual_branch_via_worktree
   branch_main: student_facing_materials, public
   branch_teacher: instructor_materials, private
-version: 1.14
-last_updated: 2026-10-21
+version: 1.15
+last_updated: 2026-10-28
 author: andrey-limasov
 license: MIT
 ```
@@ -161,6 +161,8 @@ workshops/
 └── workshop5/
     ├── workshop5-materials.md              # материалы для самостоятельного изучения и рабочие таблицы занятия (ADR 004, приложения А–Г)
     └── github-actions-template.yml         # шаблон GitHub Actions: рабочие джобы lint и secrets, заготовки test/build/publish к практике 6
+└── workshop6/
+    └── workshop6-materials.md              # материалы для самостоятельного изучения и рабочие таблицы занятия (ADR 005, приложения А–Г, заготовка джобов test/build/publish)
 ```
 
 Сюда попадает то, что студенты **должны получить до занятия**: списки материалов для самоподготовки, шаблоны их собственных артефактов. Имена файлов в этой папке исторически отличаются от общего правила (`workshop2-*` вместо `workshop-2-*`) — оставлены как есть, чтобы не ломать уже разосланные студентам ссылки. Материалы следующих воркшопов называются так же (`workshop3-materials.md`), чтобы студенты находили их по одному шаблону.
@@ -183,6 +185,8 @@ workshops-teacher/
 │   └── workshop-4-scenario.md      # поминутный сценарий воркшопа 4 (кейс, демо со сканером секретов, аудит 12-Factor, ADR 003)
 ├── workshop5/
 │   └── workshop-5-scenario.md      # поминутный сценарий воркшопа 5 (провокация, демо CI, схема пайплайна, ADR 004, трассировка PR)
+├── workshop6/
+│   └── workshop-6-scenario.md      # поминутный сценарий воркшопа 6 (провокация, демо Д1–Д4, тест-план, путь образа, ADR 005, трассировка С1–С3)
 └── practice2/
     └── practice-2-review-sheet.md  # лист фиксации межкомандного ревью ADR (зачёт/незачёт)
 ```
@@ -269,7 +273,10 @@ syllabus.md
     ├── workshop5/ (философия CI/CD: схема пайплайна, разметка шаблона workflow, ADR 004 — CI-пайплайн)
     │   ├── workshops/workshop5/ (для студентов)
     │   └── workshops-teacher/workshop5/ (для преподавателя)
-    └── ... (workshop6-workshop8)
+    ├── workshop6/ (тестирование и сборка в CI: тест-план, путь образа, ADR 005 — тестирование и сборка)
+    │   ├── workshops/workshop6/ (для студентов)
+    │   └── workshops-teacher/workshop6/ (для преподавателя)
+    └── ... (workshop7-workshop8)
 ```
 
 **Ключевые связи:**
@@ -481,6 +488,7 @@ feat: add ADR 001 for branching strategy
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
+| 2026-10-28 | 1.15 | Добавлены материалы воркшопа 6: `workshops/workshop6/workshop6-materials.md` (обе ветки) и `workshops-teacher/workshop6/` в структуру папок и граф связей | andrey-limasov |
 | 2026-10-21 | 1.14 | Добавлена практика 5 в структуру `practices/` и граф связей; домашнее задание — внутри `practice-5-guide.md` | andrey-limasov |
 | 2026-10-19 | 1.13 | Настроен remote `teacher` — приватный репозиторий для ветки `teacher` | andrey-limasov |
 | 2026-10-19 | 1.12 | GitLab убран: в метаданных `ci_cd` — только GitHub Actions, в глоссарии Branch Protection — GitHub | andrey-limasov |
