@@ -25,8 +25,8 @@ tech_stack:
 repository_structure: dual_branch_via_worktree
   branch_main: student_facing_materials, public
   branch_teacher: instructor_materials, private
-version: 1.15
-last_updated: 2026-10-28
+version: 1.16
+last_updated: 2026-11-05
 author: andrey-limasov
 license: MIT
 ```
@@ -128,9 +128,12 @@ practices/
 ├── practice4/
 │   ├── practice-4-guide.md          # обе ветки: инструкция для студентов
 │   └── practice-4-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
-└── practice5/
-    ├── practice-5-guide.md          # обе ветки: инструкция для студентов
-    └── practice-5-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
+├── practice5/
+│   ├── practice-5-guide.md          # обе ветки: инструкция для студентов
+│   └── practice-5-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
+└── practice6/
+    ├── practice-6-guide.md          # обе ветки: инструкция для студентов
+    └── practice-6-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
 ```
 
 **Принцип именования:** `practice{N}/practice-{N}-guide.md`, преподавательская версия — `practice-{N}-guide-teacher.md`
@@ -258,7 +261,9 @@ syllabus.md
 │   │   └── домашнее задание и образец Dockerfile — внутри practice-4-guide.md (отдельных файлов нет)
 │   ├── practice5/ (базовый workflow: линтер, статический анализ, блокировка merge)
 │   │   └── домашнее задание — раздел внутри practice-5-guide.md (отдельного файла нет)
-│   └── ... (practice6-practice8)
+│   ├── practice6/ (тесты, миграции, публикация образа в реестр, «Сломать и починить», ретроспектива модуля 3)
+│   │   └── домашнее задание — раздел внутри practice-6-guide.md (отдельного файла нет)
+│   └── ... (practice7-practice8)
 └── workshops/
     ├── workshop1/ (инициация проекта) — сценарий в workshops-teacher/
     ├── workshop2/ (стратегии ветвления, peer teaching)
@@ -488,6 +493,7 @@ feat: add ADR 001 for branching strategy
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
+| 2026-11-05 | 1.16 | Добавлена практика 6 в структуру `practices/` и граф связей; домашнее задание — внутри `practice-6-guide.md` | andrey-limasov |
 | 2026-10-28 | 1.15 | Добавлены материалы воркшопа 6: `workshops/workshop6/workshop6-materials.md` (обе ветки) и `workshops-teacher/workshop6/` в структуру папок и граф связей | andrey-limasov |
 | 2026-10-21 | 1.14 | Добавлена практика 5 в структуру `practices/` и граф связей; домашнее задание — внутри `practice-5-guide.md` | andrey-limasov |
 | 2026-10-19 | 1.13 | Настроен remote `teacher` — приватный репозиторий для ветки `teacher` | andrey-limasov |
