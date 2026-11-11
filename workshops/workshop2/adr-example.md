@@ -161,6 +161,7 @@ dashboard:                          ●───●       \
 - **ADR 003:** Управление конфигурацией и секретами (pydantic-settings)
 - **ADR 004:** CI-пайплайн (GitHub Actions)
 - **ADR 005:** Тестирование и сборка (pytest, Docker-образ в GHCR)
+- **ADR 006:** Продакшн-окружение: деплой и наблюдаемость (reverse-proxy с HTTPS, деплой из CI, structlog)
 
 ## Источники
 
