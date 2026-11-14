@@ -312,10 +312,10 @@ docker compose logs --no-log-prefix -f app | grep -v '"path": "/health"'     # �
 
 | Вариант | Что поменять | Как смотреть |
 |---|---|---|
-| Драйвер `journald`: строки — в системном журнале сервера | `deploy/compose.yaml`, у `app`: `logging:` → `driver: journald`, блок `options` удалить | `journalctl CONTAINER_NAME=<имя контейнера> --since today` (имя — `docker compose ps`); нужна группа `systemd-journal` — пользователя команды в неё добавляет курс, проверка — `groups` на сервере, группы нет — преподавателю ([Docker Docs: Journald logging driver](https://docs.docker.com/engine/logging/drivers/journald/), 3 мин) |
+| Драйвер `journald`: строки — в системном журнале сервера | `deploy/compose.yaml`, у `app`: `logging:` → `driver: journald`, блок `options` удалить | `journalctl CONTAINER_NAME=<имя контейнера> --since today` (имя — `docker compose ps`); нужна группа `systemd-journal` — пользователя команды в неё добавляет курс; на Ubuntu хватает и группы `adm`. Проверка — `groups` на сервере, нет ни одной из двух — преподавателю ([Docker Docs: Journald logging driver](https://docs.docker.com/engine/logging/drivers/journald/), 3 мин) |
 | Файл в томе: приложение пишет ещё и в файл | Второй вывод в `app_logging.py` (loguru — `log.add("/logs/app.log", rotation=..., retention=...)`), том `/logs` у `app`, каталог с правами пользователя образа | `docker compose exec app tail /logs/app.log` |
 
-Ни один вариант курсом на сервере не проверен. **Как проверить:** после `docker compose up -d --force-recreate app` строки, записанные до пересоздания, находятся командой из п. 7.
+Драйвер `journald` проверен на сервере курса (2026-11-14, Ubuntu 24.04, доступ через группу `adm`): после пересоздания `app` строки прошлого контейнера находятся `journalctl`, `docker compose logs app` с этим драйвером тоже работает. Файл в томе курсом не проверен. **Как проверить:** после `docker compose up -d --force-recreate app` строки, записанные до пересоздания, находятся командой из п. 7.
 
 ---
 
