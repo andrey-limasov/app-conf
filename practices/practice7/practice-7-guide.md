@@ -54,7 +54,7 @@ cat ~/.ssh/deploy_key
 echo "<поддомен> $(cut -d' ' -f1,2 /etc/ssh/ssh_host_ed25519_key.pub)"
 ```
 
-`restrict` перед ключом деплоя запрещает по нему интерактивный терминал и пробросы: ключ годится только для команды джоба. Вывод третьей команды — от `-----BEGIN OPENSSH PRIVATE KEY-----` до `-----END OPENSSH PRIVATE KEY-----` включительно — значение секрета `DEPLOY_SSH_KEY`; последняя строка (`<поддомен> ssh-ed25519 AAAA...`) — `DEPLOY_KNOWN_HOSTS`; `DEPLOY_HOST` — поддомен, `DEPLOY_USER` — имя пользователя. Секреты — **Settings → Secrets and variables → Actions → New repository secret** ([Using secrets in GitHub Actions](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets), раздел **Creating secrets for a repository**, 3 мин). Затем закрытый ключ с сервера удалите — он теперь только в секрете: `rm ~/.ssh/deploy_key`. Закрытый ключ не вставляйте в чат и файлы репозитория. Ограничение **Actions permissions** списком разрешённых издателей (практика №6) джобу `deploy` не мешает: сторонних actions в нём нет. Курсом этот блок на сервере не проверен; не получилось — «Если не работает → Деплой», до занятия.
+`restrict` перед ключом деплоя запрещает по нему интерактивный терминал и пробросы: ключ годится только для команды джоба. Вывод третьей команды — от `-----BEGIN OPENSSH PRIVATE KEY-----` до `-----END OPENSSH PRIVATE KEY-----` включительно — значение секрета `DEPLOY_SSH_KEY`; последняя строка (`<поддомен> ssh-ed25519 AAAA...`) — `DEPLOY_KNOWN_HOSTS`; `DEPLOY_HOST` — поддомен, `DEPLOY_USER` — имя пользователя. Секреты — **Settings → Secrets and variables → Actions → New repository secret** ([Using secrets in GitHub Actions](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets), раздел **Creating secrets for a repository**, 3 мин). Затем закрытый ключ с сервера удалите — он теперь только в секрете: `rm ~/.ssh/deploy_key`. Закрытый ключ не вставляйте в чат и файлы репозитория. Ограничение **Actions permissions** списком разрешённых издателей (практика №6) джобу `deploy` не мешает: сторонних actions в нём нет. Блок проверен на сервере курса (2026-11-14): джоб `deploy` вошёл по этому ключу и развернул новую версию. Не получилось — «Если не работает → Деплой», до занятия.
 
 ### Ваша входная ситуация
 
@@ -1197,7 +1197,7 @@ curl.exe -sS -D - -o NUL -H "X-Request-ID: accept-<ваша команда>-1" h
 
 ### 2. Хранение логов дольше жизни контейнера
 
-По п. 7 ADR 006: выбрать способ хранения строк дольше жизни контейнера — варианты и команды просмотра в разделе 9 [шаблона логирования](logging-template.md); отдельным PR — изменения `deploy/compose.yaml` или кода, строка «Истории изменений» ADR 006 с новым п. 7. Курс ни один вариант на сервере не проверял — проверка за вами.
+По п. 7 ADR 006: выбрать способ хранения строк дольше жизни контейнера — варианты и команды просмотра в разделе 9 [шаблона логирования](logging-template.md); отдельным PR — изменения `deploy/compose.yaml` или кода, строка «Истории изменений» ADR 006 с новым п. 7. На сервере курса проверен только journald (2026-11-14); остальные варианты — проверка за вами.
 
 **Критерий успеха:**
 
