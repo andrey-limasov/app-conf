@@ -25,8 +25,8 @@ tech_stack:
 repository_structure: dual_branch_via_worktree
   branch_main: student_facing_materials, public
   branch_teacher: instructor_materials, private
-version: 1.17
-last_updated: 2026-11-11
+version: 1.18
+last_updated: 2026-11-23
 author: andrey-limasov
 license: MIT
 ```
@@ -173,6 +173,8 @@ workshops/
     └── workshop6-materials.md              # материалы для самостоятельного изучения и рабочие таблицы занятия (ADR 005, приложения А–Г, заготовка джобов test/build/publish)
 └── workshop7/
     └── workshop7-materials.md              # материалы для самостоятельного изучения и рабочие таблицы занятия (ADR 006, схема продакшн-окружения, карта DoD 5–6, приложения А–Г)
+└── workshop8/
+    └── workshop8-materials.md              # материалы для самостоятельного изучения и рабочие таблицы занятия (аудит README по DoD 7, каркасы запуска и развёртывания, OpenAPI, индекс ADR, холодный запуск)
 ```
 
 Сюда попадает то, что студенты **должны получить до занятия**: списки материалов для самоподготовки, шаблоны их собственных артефактов. Имена файлов в этой папке исторически отличаются от общего правила (`workshop2-*` вместо `workshop-2-*`) — оставлены как есть, чтобы не ломать уже разосланные студентам ссылки. Материалы следующих воркшопов называются так же (`workshop3-materials.md`), чтобы студенты находили их по одному шаблону.
@@ -199,6 +201,8 @@ workshops-teacher/
 │   └── workshop-6-scenario.md      # поминутный сценарий воркшопа 6 (провокация, демо Д1–Д4, тест-план, путь образа, ADR 005, трассировка С1–С3)
 ├── workshop7/
 │   └── workshop-7-scenario.md      # поминутный сценарий воркшопа 7 (демо на сервере Д1–Д4, схема продакшн-окружения, способы автодеплоя, ADR 006)
+├── workshop8/
+│   └── workshop-8-scenario.md      # поминутный сценарий воркшопа 8 (провокация, демо Д1–Д4, аудит README, OpenAPI, индекс ADR, холодный запуск другой командой)
 └── practice2/
     └── practice-2-review-sheet.md  # лист фиксации межкомандного ревью ADR (зачёт/незачёт)
 ```
@@ -296,7 +300,9 @@ syllabus.md
     ├── workshop7/ (стратегии деплоя и наблюдаемость: схема продакшн-окружения, способы автодеплоя, ADR 006 — продакшн-окружение)
     │   ├── workshops/workshop7/ (для студентов)
     │   └── workshops-teacher/workshop7/ (для преподавателя)
-    └── ... (workshop8)
+    └── workshop8/ (документация как артефакт: README по DoD 7, инструкция развёртывания, OpenAPI, индекс ADR, холодный запуск)
+        ├── workshops/workshop8/ (для студентов)
+        └── workshops-teacher/workshop8/ (для преподавателя)
 ```
 
 **Ключевые связи:**
@@ -508,6 +514,7 @@ feat: add ADR 001 for branching strategy
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
+| 2026-11-23 | 1.18 | Добавлен воркшоп 8 (`workshops/workshop8/workshop8-materials.md`, `workshops-teacher/workshop8/`) в структуру папок и граф связей; рабочие таблицы занятия — внутри материалов | andrey-limasov |
 | 2026-11-11 | 1.17 | Добавлены практика 7 (инструкция, шаблоны `reverse-proxy-template.md` и `logging-template.md`) и воркшоп 7 (`workshops/workshop7/`, `workshops-teacher/workshop7/`) в структуру папок и граф связей; домашнее задание — внутри `practice-7-guide.md` | andrey-limasov |
 | 2026-11-05 | 1.16 | Добавлена практика 6 в структуру `practices/` и граф связей; домашнее задание — внутри `practice-6-guide.md` | andrey-limasov |
 | 2026-10-28 | 1.15 | Добавлены материалы воркшопа 6: `workshops/workshop6/workshop6-materials.md` (обе ветки) и `workshops-teacher/workshop6/` в структуру папок и граф связей | andrey-limasov |
