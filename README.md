@@ -25,8 +25,8 @@ tech_stack:
 repository_structure: dual_branch_via_worktree
   branch_main: student_facing_materials, public
   branch_teacher: instructor_materials, private
-version: 1.18
-last_updated: 2026-11-23
+version: 1.19
+last_updated: 2026-11-24
 author: andrey-limasov
 license: MIT
 ```
@@ -134,11 +134,15 @@ practices/
 ├── practice6/
 │   ├── practice-6-guide.md          # обе ветки: инструкция для студентов
 │   └── practice-6-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
-└── practice7/
-    ├── practice-7-guide.md          # обе ветки: инструкция для студентов
-    ├── reverse-proxy-template.md    # обе ветки: шаблон папки deploy/ — стек на сервере, reverse-proxy, deploy.sh, автодеплой
-    ├── logging-template.md          # обе ветки: шаблон структурированных логов с Request ID (structlog, loguru)
-    └── practice-7-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
+├── practice7/
+│   ├── practice-7-guide.md          # обе ветки: инструкция для студентов
+│   ├── reverse-proxy-template.md    # обе ветки: шаблон папки deploy/ — стек на сервере, reverse-proxy, deploy.sh, автодеплой
+│   ├── logging-template.md          # обе ветки: шаблон структурированных логов с Request ID (structlog, loguru)
+│   └── practice-7-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
+└── practice8/
+    ├── practice-8-guide.md          # обе ветки: инструкция для студентов
+    ├── rehearsal-checklist.md       # обе ветки: чек-лист репетиции защиты (части A–F)
+    └── practice-8-guide-teacher.md  # только teacher: заметки преподавателя и лист фиксации
 ```
 
 **Принцип именования:** `practice{N}/practice-{N}-guide.md`, преподавательская версия — `practice-{N}-guide-teacher.md`
@@ -279,7 +283,9 @@ syllabus.md
 │   ├── practice7/ (стек на сервере, reverse-proxy и HTTPS, структурированные логи, автодеплой, приёмка по URL)
 │   │   ├── reverse-proxy-template.md, logging-template.md (шаблоны файлов занятия)
 │   │   └── домашнее задание — раздел внутри practice-7-guide.md (отдельного файла нет)
-│   └── ... (practice8)
+│   └── practice8/ (финализация, репетиция защиты, межкомандная оценка по кольцу, ретроспектива модуля 4)
+│       ├── rehearsal-checklist.md (чек-лист репетиции защиты)
+│       └── домашнее задание — раздел внутри practice-8-guide.md: нового ДЗ нет, сроки до и после защиты
 └── workshops/
     ├── workshop1/ (инициация проекта) — сценарий в workshops-teacher/
     ├── workshop2/ (стратегии ветвления, peer teaching)
@@ -514,6 +520,7 @@ feat: add ADR 001 for branching strategy
 
 | Дата | Версия | Изменения | Автор |
 |---|---|---|---|
+| 2026-11-24 | 1.19 | Добавлена практика 8 (инструкция, чек-лист репетиции `rehearsal-checklist.md`, заметки преподавателя) в структуру `practices/` и граф связей; домашнее задание — раздел внутри `practice-8-guide.md` | andrey-limasov |
 | 2026-11-23 | 1.18 | Добавлен воркшоп 8 (`workshops/workshop8/workshop8-materials.md`, `workshops-teacher/workshop8/`) в структуру папок и граф связей; рабочие таблицы занятия — внутри материалов | andrey-limasov |
 | 2026-11-11 | 1.17 | Добавлены практика 7 (инструкция, шаблоны `reverse-proxy-template.md` и `logging-template.md`) и воркшоп 7 (`workshops/workshop7/`, `workshops-teacher/workshop7/`) в структуру папок и граф связей; домашнее задание — внутри `practice-7-guide.md` | andrey-limasov |
 | 2026-11-05 | 1.16 | Добавлена практика 6 в структуру `practices/` и граф связей; домашнее задание — внутри `practice-6-guide.md` | andrey-limasov |
